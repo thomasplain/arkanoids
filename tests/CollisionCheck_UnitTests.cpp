@@ -23,3 +23,10 @@ TEST(CollisionCheckTests, DetectsNonCollisionBetweenTwoBoxesOnYAxis)
 	
 	ASSERT_FALSE(CollisionCheck::collisionOccurred(b1, b2));
 }
+
+TEST(CollisionCheckTests, DetectsCollisionBetweenTwoBoxesOnYAxis)
+{
+	Box b1(Point(0, 2), 2, 2), b2(Point(0, 3), 2, 2);
+	
+	ASSERT_TRUE(CollisionCheck::collisionOccurred(b1, b2));
+}
