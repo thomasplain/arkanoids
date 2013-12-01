@@ -102,3 +102,11 @@ TEST_F(ProjectionTests, OverlapWhenOneNestedWithinTheOther)
 
 	ASSERT_TRUE(p2.OverlapsWith(p1));
 }
+
+TEST_F(ProjectionTests, OverlapWhenOneLaysDirectlyOnTheOther)
+{
+	
+	Projection p1(-1, 1), p2(-1, 1);
+
+	ASSERT_TRUE(p1.OverlapsWith(p2));
+}
