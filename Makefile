@@ -15,6 +15,7 @@ Main: Main.o \
 	Box_UnitTests.o Box.o \
 	Circle_UnitTests.o Circle.o \
 	Vector_UnitTests.o Vector.o \
-	Projection_UnitTests.o Projection.o	
+	Projection_UnitTests.o Projection.o \
+	CollisionCheck_UnitTests.o CollisionCheck.o
 	$(CXX) -o arkanoids $(CXXFLAGS) $^ libgtest.a
 	./arkanoids

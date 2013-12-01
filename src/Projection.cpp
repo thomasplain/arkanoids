@@ -50,5 +50,6 @@ bool Projection::OverlapsWith(const Projection &p) const
 {
 	return (start > p.start && p.end > start) ||
 			(end < p.end && p.start < end) ||
-			(start < p.start && p.end < end);
+			(start < p.start && p.end < end) ||
+			(start == p.start && p.end == end);
 }
