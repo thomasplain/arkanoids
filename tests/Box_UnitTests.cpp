@@ -3,6 +3,7 @@
 #include "Point.h"
 #include "Projection.h"
 #include "Vector.h"
+#include <cmath>
 
 class BoxTests : public ::testing::Test
 {
@@ -72,4 +73,18 @@ TEST_F(BoxTests, ProjectOntoYAxis)
 	Vector yAxis(0, 1);
 
 	EXPECT_EQ(p, b.Project(yAxis));	
+}
+
+TEST_F(BoxTests, ProjectOnto45DegAxis)
+{
+	Projection p(0, sqrt(2));
+	Box b(Point(0, 1), 1, 1);
+	Vector axis(1, 1);
+
+	EXPECT_EQ(p, b.Project(axis));	
+
+	p = Projection(-1/sqrt(2), 1/sqrt(2));
+	axis = Vector(-1, 1);
+
+	EXPECT_EQ(p, b.Project(axis));	
 }

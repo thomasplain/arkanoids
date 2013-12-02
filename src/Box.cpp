@@ -48,9 +48,9 @@ Projection Box::Project(const Vector& axis)
 {
 	Vector firstVertex(*topLeftCorner);	
 
-	Vector secondVertex(firstVertex + Vector(boxWidth, 0)),
+	Vector secondVertex(firstVertex + Vector(0, -boxHeight)),
 			thirdVertex(firstVertex + Vector(boxWidth, -boxHeight)),
-			fourthVertex(firstVertex + Vector(0, -boxHeight));
+			fourthVertex(firstVertex + Vector(boxWidth, 0));
 
 	float firstVertexProj = axis.Normalise().Dot(firstVertex);
 	float secondVertexProj = axis.Normalise().Dot(secondVertex);

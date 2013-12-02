@@ -104,6 +104,11 @@ TEST_F(VectorTests, NormaliseReturnsDirectionUnitVector)
 	expect(Vector(1.0/sqrt(2), 1.0/sqrt(2)));
 	checkResult(v.Normalise());
 
+	v = Vector(-3, 3);
+	
+	expect(Vector(-1.0/sqrt(2), 1.0/sqrt(2)));
+	checkResult(v.Normalise());
+
 	v = Vector(2, 4);
 	expect(Vector(1/sqrt(5), 2/sqrt(5)));
 	checkResult(v.Normalise());

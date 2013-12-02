@@ -61,13 +61,13 @@ TEST_F(ProjectionTests, ProjectOriginCentredBoxOnto45DegreeAxis)
 	compareProjections(Projection(b, fortyFiveDegAxis));
 
 	fortyFiveDegAxis = Vector(-1, 1);
-	checkProjectionsNotEqual(Projection(b, fortyFiveDegAxis));
+	compareProjections(Projection(b, fortyFiveDegAxis));
 
 	fortyFiveDegAxis = Vector(-1, -1);
 	compareProjections(Projection(b, fortyFiveDegAxis));
 
 	fortyFiveDegAxis = Vector(1, -1);
-	checkProjectionsNotEqual(Projection(b, fortyFiveDegAxis));
+	compareProjections(Projection(b, fortyFiveDegAxis));
 }
 
 TEST_F(ProjectionTests, NoOverlapIfJustTouching)
