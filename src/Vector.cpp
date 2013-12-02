@@ -1,12 +1,12 @@
 #include "Vector.h"
 #include <cmath>
 
-float Vector::Length()
+float Vector::Length() const
 {
 	return sqrt(pow(x, 2) + pow(y, 2));
 }
 
-const Vector Vector::Normalise()
+const Vector Vector::Normalise() const
 {
 	float magnitude = Length();
 	return Vector((x / magnitude), (y / magnitude));

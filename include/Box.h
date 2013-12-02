@@ -3,6 +3,7 @@
 
 class OrderedPair;
 class Projection;
+class Vector;
 
 class Box
 {
@@ -15,7 +16,7 @@ public:
 	OrderedPair& GetFirstVertex();
 	float GetWidth() const;
 	float GetHeight() const;
-	Projection Project(const OrderedPair& axis);
+	Projection Project(const Vector& axis);
 };
 
 #endif /* BOX_H_ */

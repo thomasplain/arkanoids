@@ -44,19 +44,21 @@ float Box::GetHeight() const
 	return boxHeight;
 }
 
-Projection Box::Project(const OrderedPair& axis)
+Projection Box::Project(const Vector& axis)
 {
-//	return Projection(-2, 2);
+	Vector firstVertex(*topLeftCorner);	
 
-	Vector secondVertex(topLeftCorner, firstVertex.GetY() - b.GetHeight()),
-			thirdVertex(secondVertex.GetX() + b.GetWidth(), firstVertex.GetY()),
-			fourthVertex(firstVertex.GetX() + b.GetWidth(), firstVertex.GetY());
+	Vector secondVertex(firstVertex + Vector(boxWidth, 0)),
+			thirdVertex(firstVertex + Vector(boxWidth, -boxHeight)),
+			fourthVertex(firstVertex + Vector(0, -boxHeight));
 
-	float firstVertexProj = axis.Normalise().Dot(Vector(firstVertex.GetX(), firstVertex.GetY()));
-	float secondVertexProj = axis.Normalise().Dot(Vector(secondVertex.GetX(), secondVertex.GetY()));
-	float thirdVertexProj = axis.Normalise().Dot(Vector(thirdVertex.GetX(), thirdVertex.GetY()));
-	float fourthVertexProj = axis.Normalise().Dot(Vector(fourthVertex.GetX(), fourthVertex.GetY()));
+	float firstVertexProj = axis.Normalise().Dot(firstVertex);
+	float secondVertexProj = axis.Normalise().Dot(secondVertex);
+	float thirdVertexProj = axis.Normalise().Dot(thirdVertex);
+	float fourthVertexProj = axis.Normalise().Dot(fourthVertex);
 
-	start = std::min(firstVertexProj, std::min(secondVertexProj, std::min(thirdVertexProj, fourthVertexProj)));
-	end = std::max(firstVertexProj, std::max(secondVertexProj, std::max(thirdVertexProj, fourthVertexProj)));
+	float start = std::min(firstVertexProj, std::min(secondVertexProj, std::min(thirdVertexProj, fourthVertexProj)));
+	float end = std::max(firstVertexProj, std::max(secondVertexProj, std::max(thirdVertexProj, fourthVertexProj)));
+
+	return Projection(start, end);
 }
