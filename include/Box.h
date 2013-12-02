@@ -2,6 +2,7 @@
 #define BOX_H_
 
 class OrderedPair;
+class Projection;
 
 class Box
 {
@@ -14,6 +15,7 @@ public:
 	OrderedPair& GetFirstVertex();
 	float GetWidth() const;
 	float GetHeight() const;
+	Projection Project(const OrderedPair& axis);
 };
 
 #endif /* BOX_H_ */

@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 #include "Box.h"
 #include "Point.h"
+#include "Projection.h"
+#include "Vector.h"
 
 class BoxTests : public ::testing::Test
 {
@@ -52,4 +54,22 @@ TEST_F(BoxTests, InitialiseWithTwoOppositeCorners)
 
 	b = Box(bottomLeft, topRight);
 	compareBoxes(b);
+}
+
+TEST_F(BoxTests, ProjectOntoXAxis)
+{
+	Projection p(-2, 2);
+	Box b(Point(-2, 1), 4, 1);
+	Vector xAxis(1, 0);
+
+	EXPECT_EQ(p, b.Project(xAxis));	
+}
+
+TEST_F(BoxTests, ProjectOntoYAxis)
+{
+	Projection p(0, 1);
+	Box b(Point(-2, 1), 4, 1);
+	Vector yAxis(0, 1);
+
+	EXPECT_EQ(p, b.Project(yAxis));	
 }
