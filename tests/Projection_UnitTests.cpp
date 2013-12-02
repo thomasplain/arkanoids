@@ -110,3 +110,17 @@ TEST_F(ProjectionTests, OverlapWhenOneLaysDirectlyOnTheOther)
 
 	ASSERT_TRUE(p1.OverlapsWith(p2));
 }
+
+TEST_F(ProjectionTests, OverlapsWithZeroLengthProjection)
+{
+    Projection p1(-1, 1), p2(0, 0);
+    ASSERT_TRUE(p1.OverlapsWith(p2));    
+}
+
+TEST_F(ProjectionTests, NonOverlapWithZeroLengthProjAtEitherEnd)
+{
+    Projection p1(-1, 1), p2(-1, -1);
+    ASSERT_FALSE(p1.OverlapsWith(p2));
+    p2 = Projection(1, 1);
+    ASSERT_FALSE(p1.OverlapsWith(p2));
+}
