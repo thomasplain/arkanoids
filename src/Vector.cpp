@@ -16,3 +16,13 @@ float Vector::Dot(const Vector &v) const
 {
 	return ((this->x * v.x) + (this->y * v.y));
 }
+
+const Vector& Vector::Add(const Vector& v)
+{
+	return Vector(x + v.x, y + v.y);
+}
+
+const Vector& Vector::operator+(const Vector& v)
+{
+	return Vector(this->Add(v));
+}
