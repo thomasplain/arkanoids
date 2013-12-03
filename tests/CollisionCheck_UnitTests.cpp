@@ -83,3 +83,10 @@ TEST(CollisionCheckTests, DetectsNonCollisionBetweenTwoCirclesOnFortyFiveDegAxis
 	
 	ASSERT_FALSE(CollisionCheck::collisionOccurred(c1, c2));
 }
+
+TEST(CollisionCheckTests, DetectsCollisionBetweenTwoCirclesOnFortyFiveDegAxis)
+{
+	Circle c1(Point(0, 0), 1), c2(Point(1 + 1/sqrt(2), 1 + 1/sqrt(2)), 2);
+	
+	ASSERT_TRUE(CollisionCheck::collisionOccurred(c1, c2));
+}
