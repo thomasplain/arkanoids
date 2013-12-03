@@ -15,6 +15,8 @@ bool CollisionCheck::collisionOccurred(const Box &b1, const Box &b2)
 
 bool CollisionCheck::collisionOccurred(const Circle &c1, const Circle &c2)
 {
+	Vector separatingAxis = Vector(c1.GetCentre()) - Vector(c2.GetCentre());
 	return c1.Project(xAxis).OverlapsWith(c2.Project(xAxis)) &&
-		c1.Project(yAxis).OverlapsWith(c2.Project(yAxis));
+		c1.Project(yAxis).OverlapsWith(c2.Project(yAxis)) &&
+		c1.Project(separatingAxis).OverlapsWith(c2.Project(separatingAxis));
 }
