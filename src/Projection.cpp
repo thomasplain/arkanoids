@@ -3,6 +3,9 @@
 #include "Box.h"
 #include "Circle.h"
 #include <algorithm>
+#include <cmath>
+
+const float tolerance = 0.00001;
 
 void Projection::setStartAndEnd(float startPoint, float endPoint)
 {
@@ -27,7 +30,8 @@ Projection::Projection(Box b, Vector axis)
 
 bool Projection::operator==(const Projection &p) const
 {
-	return (start == p.start && end == p.end);
+	return (fabs(start - p.start) < tolerance && 
+			fabs(end - p.end) < tolerance);
 }
 
 bool Projection::operator!=(const Projection &p) const

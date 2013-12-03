@@ -2,6 +2,8 @@
 #define CIRCLE_H
 
 class OrderedPair;
+class Projection;
+class Vector;
 typedef float Radius;
 
 class Circle
@@ -16,6 +18,7 @@ class Circle
 		void Translate(OrderedPair& translation);
 		OrderedPair& GetCentre() const;
 		Radius GetRadius() const;
+		Projection Project(const Vector axis);
 };
 
 #endif /* CIRCLE_H */

@@ -1,6 +1,9 @@
 #include "Circle.h"
 #include "Point.h"
+#include "Vector.h"
 #include "OrderedPair.h"
+#include "Projection.h"
+#include <iostream>
 
 Circle::Circle(OrderedPair *p, Radius r)
 {
@@ -41,4 +44,15 @@ OrderedPair& Circle::GetCentre() const
 Radius Circle::GetRadius() const
 {
 	return radius;
+}
+
+Projection Circle::Project(const Vector axis)
+{
+	Vector centreVector(*centre);
+
+	float centreProj = axis.Normalise().Dot(centreVector);
+	float start = centreProj - radius;
+	float end = centreProj + radius;
+
+	return Projection(start, end);
 }
