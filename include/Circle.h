@@ -6,7 +6,9 @@ class Projection;
 class Vector;
 typedef float Radius;
 
-class Circle
+#include "Shape.h"
+
+class Circle : public Shape
 {
 	OrderedPair *centre;
 	Radius radius;
@@ -18,7 +20,7 @@ class Circle
 		void Translate(OrderedPair& translation);
 		OrderedPair& GetCentre() const;
 		Radius GetRadius() const;
-		Projection Project(const Vector axis);
+		virtual Projection Project(const Vector& axis) const;
 };
 
 #endif /* CIRCLE_H */

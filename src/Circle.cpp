@@ -46,7 +46,7 @@ Radius Circle::GetRadius() const
 	return radius;
 }
 
-Projection Circle::Project(const Vector axis)
+Projection Circle::Project(const Vector& axis) const
 {
 	Vector centreVector(*centre);
 

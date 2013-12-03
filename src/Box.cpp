@@ -44,7 +44,7 @@ float Box::GetHeight() const
 	return boxHeight;
 }
 
-Projection Box::Project(const Vector& axis)
+Projection Box::Project(const Vector& axis) const
 {
 	Vector firstVertex(*topLeftCorner);	
 

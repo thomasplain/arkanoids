@@ -2,6 +2,7 @@
 #include "Vector.h"
 #include "Box.h"
 #include "Circle.h"
+#include "Shape.h"
 #include <algorithm>
 #include <cmath>
 
@@ -13,14 +14,9 @@ void Projection::setStartAndEnd(float startPoint, float endPoint)
 	end = std::max(startPoint, endPoint);
 }
 
-Projection::Projection(Circle c, Vector axis)
+Projection::Projection(const Shape& s, Vector axis)
 {
-	*this = c.Project(axis);
-}
-
-Projection::Projection(Box b, Vector axis)
-{
-	*this = b.Project(axis);
+	*this = s.Project(axis);
 }
 
 bool Projection::operator==(const Projection &p) const
