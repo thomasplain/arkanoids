@@ -8,26 +8,23 @@
 
 TEST(CircleTests, CentreInitialisedByConstructor)
 {
-	Point p(3, 2);
-	Circle c(p, 3);
+	Circle c(Point(3, 2), 3);
 	
 	EXPECT_EQ(Point(3, 2), c.GetCentre());
 }
 
 TEST(CircleTests, RadiusInitialisedByConstructor)
 {
-	Point p(0, 0);
-	Circle c(p, 4);
+	Circle c(Point(0, 0), 4);
 	
 	EXPECT_EQ(4, c.GetRadius());
 }
 
 TEST(CircleTests, TranslateMovesCentre)
 {
-	Point p(0, 0);
 	Vector displacement(3, 3);
 	
-	Circle c(p, 1);
+	Circle c(Point(0, 0), 1);
 	
 	c.Translate(displacement);
 	
@@ -36,8 +33,7 @@ TEST(CircleTests, TranslateMovesCentre)
 
 TEST(CircleTests, OriginCentredProjectionIsSameOnAnyAxis)
 {
-	Point p(0, 0);
-	Circle c(p, 2);
+	Circle c(Point(0, 0), 2);
 	Vector axis(1, 0);
 	Projection proj(-2, 2);
 
@@ -56,8 +52,7 @@ TEST(CircleTests, OriginCentredProjectionIsSameOnAnyAxis)
 TEST(CircleTests, ProjectionOnXAxisIsDiameter)
 {
 	Vector xAxis(1, 0);
-	Point centre(2, 2);
-	Circle c(centre, 3);
+	Circle c(Point(2, 2), 3);
 	Projection expected(-1, 5);
 	
 	EXPECT_EQ(expected, c.Project(xAxis));
@@ -66,8 +61,7 @@ TEST(CircleTests, ProjectionOnXAxisIsDiameter)
 TEST(CircleTests, ProjectionOnYAxisIsDiameter)
 {
 	Vector yAxis(0, 1);
-	Point centre(3, 3);
-	Circle c(centre, 3);
+	Circle c(Point(3, 3), 3);
 	Projection expected(0, 6);
 	
 	EXPECT_EQ(expected, c.Project(yAxis));
@@ -76,8 +70,7 @@ TEST(CircleTests, ProjectionOnYAxisIsDiameter)
 TEST(CircleTests, ProjectionOntoFortyFiveDegAxisIsDiameter)
 {
 	Vector fortyFiveAxis(1, 1);
-	Point centre(0, 3);
-	Circle c(centre, 3);
+	Circle c(Point(0, 3), 3);
 	Projection expected((3 / sqrt(2)) - 3, (3 / sqrt(2)) + 3);
 
 	EXPECT_EQ(expected, c.Project(fortyFiveAxis));
