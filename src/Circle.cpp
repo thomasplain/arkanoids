@@ -5,9 +5,9 @@
 #include "Projection.h"
 #include <iostream>
 
-Circle::Circle(OrderedPair *p, Radius r)
+Circle::Circle(const OrderedPair& p, Radius r)
 {
-	centre = new Point(*p);
+	centre = new Point(p);
 	radius = r;
 }
 

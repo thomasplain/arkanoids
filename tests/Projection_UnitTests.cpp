@@ -11,7 +11,7 @@ class ProjectionTests : public ::testing::Test
 protected:
 	Circle c;
 	Projection expected;
-	ProjectionTests() : c(new Point(0, 0), 2), expected(c, Vector(0, 0)) {}
+	ProjectionTests() : c(Point(0, 0), 2), expected(c, Vector(0, 0)) {}
 	void expect(Projection p)
 	{
 		expected = p;
