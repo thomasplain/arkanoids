@@ -149,3 +149,18 @@ TEST_F(VectorTests, AddOverloaded)
 	ASSERT_EQ(Vector(1, 1).Add(Vector(1, 1)),
 		Vector(1, 1) + Vector(1, 1));
 }
+
+TEST_F(VectorTests, SubtractTwoVectors)
+{
+	Vector v1(3, 3), v2(4, 4);
+
+	expect(Vector(-1, -1));
+	checkResult(v1.Subtract(v2));
+}
+
+TEST_F(VectorTests, SubtractOverloaded)
+{
+	
+	Vector v1(3, 3), v2(4, 4);
+	ASSERT_EQ(v1.Subtract(v2), v1 - v2);
+}
