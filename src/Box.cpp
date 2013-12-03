@@ -1,5 +1,7 @@
 #include "Box.h"
 #include "Point.h"
+#include "Projection.h"
+#include "Vector.h"
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -40,4 +42,23 @@ float Box::GetWidth() const
 float Box::GetHeight() const
 {
 	return boxHeight;
+}
+
+Projection Box::Project(const Vector& axis) const
+{
+	Vector firstVertex(*topLeftCorner);	
+
+	Vector secondVertex(firstVertex + Vector(0, -boxHeight)),
+			thirdVertex(firstVertex + Vector(boxWidth, -boxHeight)),
+			fourthVertex(firstVertex + Vector(boxWidth, 0));
+
+	float firstVertexProj = axis.Normalise().Dot(firstVertex);
+	float secondVertexProj = axis.Normalise().Dot(secondVertex);
+	float thirdVertexProj = axis.Normalise().Dot(thirdVertex);
+	float fourthVertexProj = axis.Normalise().Dot(fourthVertex);
+
+	float start = std::min(firstVertexProj, std::min(secondVertexProj, std::min(thirdVertexProj, fourthVertexProj)));
+	float end = std::max(firstVertexProj, std::max(secondVertexProj, std::max(thirdVertexProj, fourthVertexProj)));
+
+	return Projection(start, end);
 }

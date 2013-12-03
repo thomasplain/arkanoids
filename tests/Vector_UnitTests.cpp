@@ -104,6 +104,11 @@ TEST_F(VectorTests, NormaliseReturnsDirectionUnitVector)
 	expect(Vector(1.0/sqrt(2), 1.0/sqrt(2)));
 	checkResult(v.Normalise());
 
+	v = Vector(-3, 3);
+	
+	expect(Vector(-1.0/sqrt(2), 1.0/sqrt(2)));
+	checkResult(v.Normalise());
+
 	v = Vector(2, 4);
 	expect(Vector(1/sqrt(5), 2/sqrt(5)));
 	checkResult(v.Normalise());
@@ -125,4 +130,22 @@ TEST_F(VectorTests, DotWithOrthogonalGivesZero)
 	ASSERT_EQ(v.Dot(Vector(0, 1)), 0);
 	v = Vector(3, 4);
 	ASSERT_EQ(v.Dot(Vector(-4, 3)), 0);
+}
+
+TEST_F(VectorTests, AddTwoVectors)
+{
+	Vector v1(1, 1), v2(1, 1);
+	expect(Vector(2, 2));
+
+	checkResult(v1.Add(v2));
+
+	v2 = Vector(3, -5);
+	expect(Vector(4, -4));
+	checkResult(v1.Add(v2));
+}
+
+TEST_F(VectorTests, AddOverloaded)
+{
+	ASSERT_EQ(Vector(1, 1).Add(Vector(1, 1)),
+		Vector(1, 1) + Vector(1, 1));
 }

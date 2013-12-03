@@ -1,9 +1,8 @@
 #ifndef PROJECTION_H
 #define PROJECTION_H
 
-class Circle;
 class Vector;
-class Box;
+class Shape;
 
 class Projection
 {
@@ -16,8 +15,7 @@ public:
 		setStartAndEnd(startPoint, endPoint);
 	}
 
-	Projection(Circle c, Vector axis);
-	Projection(Box b, Vector axis);
+	Projection(const Shape& s, Vector axis);
 	bool operator==(const Projection &p) const;
 	bool operator!=(const Projection &p) const;
 

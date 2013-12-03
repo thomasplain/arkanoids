@@ -9,9 +9,12 @@ public:
 	Vector(float xValue = 1, float yValue = 0) : OrderedPair(xValue, yValue) {}
 	Vector(const OrderedPair &v) : OrderedPair(v.GetX(), v.GetY()) {}
 
-	float Length();
-	const Vector Normalise();
+	float Length() const;
+	const Vector Normalise() const;
 	float Dot(const Vector &v) const;
+	const Vector& Add(const Vector& v);
+
+	const Vector& operator+(const Vector& v);
 };
 
 #endif /* VECTOR_H_ */

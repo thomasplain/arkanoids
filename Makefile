@@ -2,6 +2,13 @@ EXT_DIR = externals
 INC_DIR = include
 VPATH = src:tests
 
+# If system OS is Windows
+ifeq ($(OS),Windows_NT)
+	LIBGTEST = libgtest-win.a
+else
+	LIBGTEST = libgtest-nix.a
+endif
+
 CXXFLAGS += -I$(EXT_DIR) -I$(INC_DIR) -pthread
 
 all: Main
@@ -17,5 +24,5 @@ Main: Main.o \
 	Vector_UnitTests.o Vector.o \
 	Projection_UnitTests.o Projection.o \
 	CollisionCheck_UnitTests.o CollisionCheck.o
-	$(CXX) -o arkanoids $(CXXFLAGS) $^ libgtest.a
+	$(CXX) -o arkanoids $(CXXFLAGS) $^ $(LIBGTEST)
 	./arkanoids

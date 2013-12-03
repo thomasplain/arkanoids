@@ -2,8 +2,12 @@
 #define BOX_H_
 
 class OrderedPair;
+class Projection;
+class Vector;
 
-class Box
+#include "Shape.h"
+
+class Box : public Shape
 {
 	OrderedPair* topLeftCorner;
 	float boxWidth, boxHeight;
@@ -14,6 +18,7 @@ public:
 	OrderedPair& GetFirstVertex();
 	float GetWidth() const;
 	float GetHeight() const;
+	virtual Projection Project(const Vector& axis) const;
 };
 
 #endif /* BOX_H_ */
