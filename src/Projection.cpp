@@ -15,12 +15,7 @@ void Projection::setStartAndEnd(float startPoint, float endPoint)
 
 Projection::Projection(Circle c, Vector axis)
 {
-	Vector circleCentre(c.GetCentre().GetX(), c.GetCentre().GetY());
-	Vector normalisedAxis = axis.Normalise();
-	float projectionMidPoint = normalisedAxis.Dot(circleCentre);
-
-	setStartAndEnd(projectionMidPoint - c.GetRadius(),
-			projectionMidPoint + c.GetRadius());
+	*this = c.Project(axis);
 }
 
 Projection::Projection(Box b, Vector axis)
