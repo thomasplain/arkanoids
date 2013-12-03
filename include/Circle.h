@@ -13,7 +13,7 @@ class Circle : public Shape
 	OrderedPair *centre;
 	Radius radius;
 	public:
-		Circle(OrderedPair *p, Radius r = 0);
+		Circle(const OrderedPair& p, Radius r = 0);
 		Circle(const Circle &c);
 		Circle& operator=(const Circle &c);
 		~Circle();
