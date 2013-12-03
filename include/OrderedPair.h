@@ -14,7 +14,7 @@ public:
 
 	void TranslateX(float displacement) { x += displacement; }
 	void TranslateY(float displacement) { y += displacement; }
-	void TranslateBy(OrderedPair translation)
+	void TranslateBy(const OrderedPair& translation)
 	{
 		TranslateX(translation.x);
 		TranslateY(translation.y);
@@ -24,6 +24,7 @@ public:
 	{
 		return ((x == p.GetX()) && (y == p.GetY()));
 	}
+
 };
 
 #endif /* ORDEREDPAIR_H_ */

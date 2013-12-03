@@ -22,7 +22,17 @@ const Vector& Vector::Add(const Vector& v)
 	return Vector(x + v.x, y + v.y);
 }
 
+const Vector& Vector::Subtract(const Vector& v)
+{
+	return Vector(x - v.x, y - v.y);
+}
+
 const Vector& Vector::operator+(const Vector& v)
 {
 	return Vector(this->Add(v));
+}
+
+const Vector& Vector::operator-(const Vector& v)
+{
+	return Vector(this->Subtract(v));
 }
