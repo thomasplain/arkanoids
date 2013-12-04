@@ -113,8 +113,9 @@ TEST_F(ProjectionTests, OverlapWhenOneLaysDirectlyOnTheOther)
 TEST_F(ProjectionTests, OverlapsWithZeroLengthProjection)
 {
     Projection p1(-1, 1), p2(0, 0);
-    ASSERT_TRUE(p1.OverlapsWith(p2));    
-}
+    ASSERT_TRUE(p1.OverlapsWith(p2));  
+    ASSERT_TRUE(p2.OverlapsWith(p1));  
+}  
 
 TEST_F(ProjectionTests, NonOverlapWithZeroLengthProjAtEitherEnd)
 {
@@ -122,4 +123,14 @@ TEST_F(ProjectionTests, NonOverlapWithZeroLengthProjAtEitherEnd)
     ASSERT_FALSE(p1.OverlapsWith(p2));
     p2 = Projection(1, 1);
     ASSERT_FALSE(p1.OverlapsWith(p2));
+}
+
+TEST_F(ProjectionTests, OverlapSitsInsideOtherTouchingEdge)
+{
+    Projection p1(-2, 2), p2(-2, -1);
+    ASSERT_TRUE(p1.OverlapsWith(p2));
+    ASSERT_TRUE(p2.OverlapsWith(p1));
+    p2 = Projection(1, 2);
+    ASSERT_TRUE(p1.OverlapsWith(p2));
+    ASSERT_TRUE(p2.OverlapsWith(p1));
 }

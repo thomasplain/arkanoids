@@ -32,8 +32,14 @@ bool Projection::operator!=(const Projection &p) const
 
 bool Projection::OverlapsWith(const Projection &p) const
 {
-	return (start > p.start && p.end > start) ||
-			(end < p.end && p.start < end) ||
-			(start < p.start && p.end < end) ||
-			(start == p.start && p.end == end);
+	if (p.end == p.start || end == start)
+	{
+		return (start > p.start && start < p.end) ||
+			(p.start > start && p.start < end);
+	}
+	else
+	{
+		return (end > p.start && start < p.end) ||
+			start < p.end && end > p.start;
+	}
 }
