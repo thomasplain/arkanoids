@@ -14,6 +14,7 @@ public:
 	float Dot(const Vector &v) const;
 	const Vector& Add(const Vector& v);
 	const Vector& Subtract(const Vector& v);
+	const Vector& Times(const float f);
 
 	const Vector& operator+(const Vector& v);
 	const Vector& operator-(const Vector& v);

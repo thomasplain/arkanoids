@@ -164,3 +164,11 @@ TEST_F(VectorTests, SubtractOverloaded)
 	Vector v1(3, 3), v2(4, 4);
 	ASSERT_EQ(v1.Subtract(v2), v1 - v2);
 }
+
+TEST_F(VectorTests, VectorTimesScalar)
+{
+	Vector v(1, 1);
+	ASSERT_EQ(Vector(3, 3), v.Times(3));
+	ASSERT_EQ(Vector(0, 0), v.Times(0));
+	ASSERT_EQ(Vector(-5, -5), v.Times(-5));
+}

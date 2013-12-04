@@ -27,6 +27,11 @@ const Vector& Vector::Subtract(const Vector& v)
 	return Vector(x - v.x, y - v.y);
 }
 
+const Vector& Vector::Times(const float f)
+{
+	return Vector(x * f, y * f);
+}
+
 const Vector& Vector::operator+(const Vector& v)
 {
 	return Vector(this->Add(v));
