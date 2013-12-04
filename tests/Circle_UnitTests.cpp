@@ -76,7 +76,7 @@ TEST(CircleTests, ProjectionOntoFortyFiveDegAxisIsDiameter)
 	EXPECT_EQ(expected, c.Project(fortyFiveAxis));
 }
 
-TEST(CircleTests, GetClosestPointReturnsPointOnCircumference)
+TEST(CircleTests, GetClosestPointReturnsPointOnCircumferenceIfOutside)
 {
 	Circle c(Point(0, 0), 2);
 	Point p(0, 3);
@@ -88,7 +88,16 @@ TEST(CircleTests, GetClosestPointReturnsPointOnCircumference)
 	closest = c.GetClosestPoint(p);
 	ASSERT_EQ(Point(2, 0), closest);
 
-	p = Point(-1, 0);
+	p = Point(-3, 0);
 	closest = c.GetClosestPoint(p);
 	ASSERT_EQ(Point(-2, 0), closest);
+}
+
+TEST(CircleTest, ClosestPointIsSekfIfInsideCircle)
+{
+	Circle c(Point(0, 0), 2);
+	Point p(1, 0);
+
+	Point closest(c.GetClosestPoint(p));
+	ASSERT_EQ(p, closest);
 }
