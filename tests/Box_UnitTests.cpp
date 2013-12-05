@@ -4,6 +4,8 @@
 #include "Projection.h"
 #include "Vector.h"
 #include <cmath>
+#include <iostream>
+#include <memory>
 
 class BoxTests : public ::testing::Test
 {
@@ -87,4 +89,22 @@ TEST_F(BoxTests, ProjectOnto45DegAxis)
 	axis = Vector(-1, 1);
 
 	EXPECT_EQ(p, b.Project(axis));	
+}
+
+TEST_F(BoxTests, ClosestPointIsTopLeftCornerWhenInTopLeftRegion)
+{
+	Box b(OrderedPair(-1, 1), 2, 2);
+	OrderedPair p(-2, 5);
+
+	std::auto_ptr<OrderedPair> closest(b.GetClosestPoint(p));
+	EXPECT_EQ(Point(-1, 1), *closest);
+}
+
+TEST_F(BoxTests, ClosestPointIsTopRightCornerWhenInTopRightRegion)
+{
+	Box b(OrderedPair(-1, 1), 2, 2);
+	OrderedPair p(3, 4);
+
+	std::auto_ptr<OrderedPair> closest(b.GetClosestPoint(p));
+	EXPECT_EQ(OrderedPair(1, 1), *closest);
 }

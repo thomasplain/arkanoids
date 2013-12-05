@@ -66,3 +66,23 @@ Projection Box::Project(const Vector& axis) const
 
 	return Projection(start, end);
 }
+
+OrderedPair* Box::GetClosestPoint(const OrderedPair& op)
+{
+	Vector *centre = Vector(*topLeftCorner) + Vector(boxWidth/2, -boxHeight/2);
+	Vector *difference = Vector(op) - *centre;
+	Vector offset;
+	Vector *closest;
+	float xValue = 0, yValue = 0; 
+
+	if (fabs(difference->GetX()) >= boxWidth / 2 &&
+		fabs(difference->GetY() >= boxHeight / 2))
+	{
+		xValue = (difference->GetX() > 0 ? 1 : -1) * boxWidth / 2;
+		yValue = (difference->GetY() > 0 ? 1 : -1) * boxHeight / 2;
+	}
+	offset = Vector(xValue, yValue);
+	closest = *centre + offset;
+	delete centre, difference;
+	return closest;
+}
