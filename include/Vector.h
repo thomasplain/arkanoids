@@ -12,12 +12,12 @@ public:
 	float Length() const;
 	const Vector Normalise() const;
 	float Dot(const Vector &v) const;
-	const Vector& Add(const Vector& v);
-	const Vector& Subtract(const Vector& v);
-	const Vector& Times(const float f);
+	Vector* Add(const Vector& v);
+	Vector* Subtract(const Vector& v);
+	Vector* Times(const float f);
 
-	const Vector& operator+(const Vector& v);
-	const Vector& operator-(const Vector& v);
+	Vector* operator+(const Vector& v);
+	Vector* operator-(const Vector& v);
 };
 
 #endif /* VECTOR_H_ */
