@@ -78,26 +78,30 @@ TEST(CircleTests, ProjectionOntoFortyFiveDegAxisIsDiameter)
 
 TEST(CircleTests, GetClosestPointReturnsPointOnCircumferenceIfOutside)
 {
-	Circle c(Point(0, 0), 2);
-	Point p(0, 3);
+	Circle c(OrderedPair(0, 0), 2);
+	OrderedPair p(0, 3);
 
-	Point closest(c.GetClosestPoint(p));
-	ASSERT_EQ(Point(0, 2), closest);
+	OrderedPair *closest = c.GetClosestPoint(p);
+	ASSERT_EQ(OrderedPair(0, 2), *closest);
+	delete closest;
 
-	p = Point(3, 0);
+	p = OrderedPair(3, 0);
 	closest = c.GetClosestPoint(p);
-	ASSERT_EQ(Point(2, 0), closest);
+	ASSERT_EQ(OrderedPair(2, 0), *closest);
+	delete closest;
 
-	p = Point(-3, 0);
+	p = OrderedPair(-3, 0);
 	closest = c.GetClosestPoint(p);
-	ASSERT_EQ(Point(-2, 0), closest);
+	ASSERT_EQ(OrderedPair(-2, 0), *closest);
+	delete closest;
 }
 
 TEST(CircleTest, ClosestPointIsSekfIfInsideCircle)
 {
 	Circle c(Point(0, 0), 2);
-	Point p(1, 0);
+	OrderedPair p(1, 0);
 
-	Point closest(c.GetClosestPoint(p));
-	ASSERT_EQ(p, closest);
+	OrderedPair *closest = c.GetClosestPoint(p);
+	ASSERT_EQ(p, *closest);
+	delete closest;
 }
