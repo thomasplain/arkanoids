@@ -76,7 +76,7 @@ OrderedPair* Box::GetClosestPoint(const OrderedPair& op)
 	float xValue = 0, yValue = 0; 
 
 	if (fabs(difference->GetX()) >= boxWidth / 2 &&
-		fabs(difference->GetY() >= boxHeight / 2))
+		fabs(difference->GetY()) >= boxHeight / 2)
 	{
 		xValue = (difference->GetX() > 0 ? 1 : -1) * boxWidth / 2;
 		yValue = (difference->GetY() > 0 ? 1 : -1) * boxHeight / 2;
