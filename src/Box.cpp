@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <memory>
 
 Box::Box(const OrderedPair& p, float width, float height) : boxWidth(width), boxHeight(height)
 {
@@ -69,20 +70,18 @@ Projection Box::Project(const Vector& axis) const
 
 OrderedPair* Box::GetClosestPoint(const OrderedPair& op)
 {
-	Vector *centre = Vector(*topLeftCorner) + Vector(boxWidth/2, -boxHeight/2);
-	Vector *difference = Vector(op) - *centre;
-	Vector offset;
-	Vector *closest;
-	float xValue = 0, yValue = 0; 
+	std::auto_ptr<Vector> centre(Vector(*topLeftCorner) + Vector(boxWidth/2, -boxHeight/2));
+	std::auto_ptr<Vector> difference(Vector(op) - *centre);
+	float xValue = difference->GetX(), yValue = difference->GetY(); 
 
-	if (fabs(difference->GetX()) >= boxWidth / 2 &&
-		fabs(difference->GetY()) >= boxHeight / 2)
+	if (fabs(xValue) >= boxWidth / 2)
 	{
-		xValue = (difference->GetX() > 0 ? 1 : -1) * boxWidth / 2;
-		yValue = (difference->GetY() > 0 ? 1 : -1) * boxHeight / 2;
+		xValue = (xValue > 0 ? 1 : -1) * boxWidth / 2;
 	}
-	offset = Vector(xValue, yValue);
-	closest = *centre + offset;
-	delete centre, difference;
-	return closest;
+	if (fabs(yValue) >= boxHeight / 2)
+	{
+		yValue = (yValue > 0 ? 1 : -1) * boxHeight / 2;
+	}
+	
+	return *centre + Vector(xValue, yValue);
 }

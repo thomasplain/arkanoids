@@ -126,3 +126,45 @@ TEST_F(BoxTests, ClosestPointIsBottomRightCornerWhenInBottomRightRegion)
 	std::auto_ptr<OrderedPair> closest(b.GetClosestPoint(p));
 	EXPECT_EQ(OrderedPair(1, -1), *closest);
 }
+
+TEST_F(BoxTests, ClosestPointIsOnEdgeDirectlyBelowWhenAbove)
+{
+	Box b(OrderedPair(-1, 1), 2, 2);
+	OrderedPair p(0, 2);
+
+	std::auto_ptr<OrderedPair> closest(b.GetClosestPoint(p));
+	EXPECT_EQ(OrderedPair(0, 1), *closest);
+	
+	p = OrderedPair(-0.5, 2);
+
+	std::auto_ptr<OrderedPair> closest2(b.GetClosestPoint(p));
+	EXPECT_EQ(OrderedPair(-0.5, 1), *closest2);
+}
+
+TEST_F(BoxTests, ClosestPointIsOnEdgeDirectlyAboveWhenBelow)
+{
+	Box b(OrderedPair(-1, 1), 2, 2);
+	OrderedPair p(0, -2);
+
+	std::auto_ptr<OrderedPair> closest(b.GetClosestPoint(p));
+	EXPECT_EQ(OrderedPair(0, -1), *closest);
+	
+	p = OrderedPair(-0.5, -2);
+
+	std::auto_ptr<OrderedPair> closest2(b.GetClosestPoint(p));
+	EXPECT_EQ(OrderedPair(-0.5, -1), *closest2);
+}
+
+TEST_F(BoxTests, ClosestPointIsOnEdgeDirectlyHorizontalAndShit)
+{
+	Box b(OrderedPair(-1, 1), 2, 2);
+	OrderedPair p(10, 0);
+
+	std::auto_ptr<OrderedPair> closest(b.GetClosestPoint(p));
+	EXPECT_EQ(OrderedPair(1, 0), *closest);
+	
+	p = OrderedPair(10, 0.5);
+
+	std::auto_ptr<OrderedPair> closest2(b.GetClosestPoint(p));
+	EXPECT_EQ(OrderedPair(1, 0.5), *closest2);
+}
