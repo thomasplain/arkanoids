@@ -137,17 +137,23 @@ TEST_F(VectorTests, AddTwoVectors)
 	Vector v1(1, 1), v2(1, 1);
 	expect(Vector(2, 2));
 
-	checkResult(v1.Add(v2));
+	Vector *result = v1.Add(v2);
+	checkResult(*result);
+	delete result;
 
 	v2 = Vector(3, -5);
 	expect(Vector(4, -4));
-	checkResult(v1.Add(v2));
+	result = v1.Add(v2);
+	checkResult(*result);
+	delete result;
 }
 
 TEST_F(VectorTests, AddOverloaded)
 {
-	ASSERT_EQ(Vector(1, 1).Add(Vector(1, 1)),
-		Vector(1, 1) + Vector(1, 1));
+	Vector *result1 = Vector(1, 1).Add(Vector(1, 1)),
+		*result2 = Vector(1, 1) + Vector(1, 1);
+	ASSERT_EQ(*result1, *result2);
+	delete result1, result2;
 }
 
 TEST_F(VectorTests, SubtractTwoVectors)
@@ -155,12 +161,31 @@ TEST_F(VectorTests, SubtractTwoVectors)
 	Vector v1(3, 3), v2(4, 4);
 
 	expect(Vector(-1, -1));
-	checkResult(v1.Subtract(v2));
+	Vector *result = v1.Subtract(v2);
+	checkResult(*result);
+	delete result;
 }
 
 TEST_F(VectorTests, SubtractOverloaded)
 {
 	
 	Vector v1(3, 3), v2(4, 4);
-	ASSERT_EQ(v1.Subtract(v2), v1 - v2);
+	Vector *result1 = v1.Subtract(v2),
+		*result2 = v1 - v2;
+	ASSERT_EQ(*result1, *result2);
+	delete result1, result2;
+}
+
+TEST_F(VectorTests, VectorTimesScalar)
+{
+	Vector v(1, 1);
+	Vector *product = v.Times(3);
+	ASSERT_EQ(Vector(3, 3), *product);
+	delete product;
+	product = v.Times(0);
+	ASSERT_EQ(Vector(0, 0), *product);
+	delete product;
+	product = v.Times(-5);
+	ASSERT_EQ(Vector(-5, -5), *product);
+	delete product;
 }

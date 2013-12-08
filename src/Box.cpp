@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <memory>
 
 Box::Box(const OrderedPair& p, float width, float height) : boxWidth(width), boxHeight(height)
 {
@@ -48,17 +49,39 @@ Projection Box::Project(const Vector& axis) const
 {
 	Vector firstVertex(*topLeftCorner);	
 
-	Vector secondVertex(firstVertex + Vector(0, -boxHeight)),
-			thirdVertex(firstVertex + Vector(boxWidth, -boxHeight)),
-			fourthVertex(firstVertex + Vector(boxWidth, 0));
+	Vector *secondVertex = firstVertex + Vector(0, -boxHeight),
+		*thirdVertex = firstVertex + Vector(boxWidth, -boxHeight),
+		*fourthVertex = firstVertex + Vector(boxWidth, 0);
 
 	float firstVertexProj = axis.Normalise().Dot(firstVertex);
-	float secondVertexProj = axis.Normalise().Dot(secondVertex);
-	float thirdVertexProj = axis.Normalise().Dot(thirdVertex);
-	float fourthVertexProj = axis.Normalise().Dot(fourthVertex);
+	float secondVertexProj = axis.Normalise().Dot(*secondVertex);
+	float thirdVertexProj = axis.Normalise().Dot(*thirdVertex);
+	float fourthVertexProj = axis.Normalise().Dot(*fourthVertex);
 
 	float start = std::min(firstVertexProj, std::min(secondVertexProj, std::min(thirdVertexProj, fourthVertexProj)));
 	float end = std::max(firstVertexProj, std::max(secondVertexProj, std::max(thirdVertexProj, fourthVertexProj)));
 
+	delete secondVertex;
+	delete thirdVertex;
+	delete fourthVertex;
+
 	return Projection(start, end);
+}
+
+OrderedPair* Box::GetClosestPoint(const OrderedPair& op)
+{
+	std::auto_ptr<Vector> centre(Vector(*topLeftCorner) + Vector(boxWidth/2, -boxHeight/2));
+	std::auto_ptr<Vector> difference(Vector(op) - *centre);
+	float xValue = difference->GetX(), yValue = difference->GetY(); 
+
+	if (fabs(xValue) >= boxWidth / 2)
+	{
+		xValue = (xValue > 0 ? 1 : -1) * boxWidth / 2;
+	}
+	if (fabs(yValue) >= boxHeight / 2)
+	{
+		yValue = (yValue > 0 ? 1 : -1) * boxHeight / 2;
+	}
+	
+	return *centre + Vector(xValue, yValue);
 }

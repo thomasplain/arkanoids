@@ -19,6 +19,7 @@ public:
 	float GetWidth() const;
 	float GetHeight() const;
 	virtual Projection Project(const Vector& axis) const;
+	OrderedPair* GetClosestPoint(const OrderedPair& op);
 };
 
 #endif /* BOX_H_ */

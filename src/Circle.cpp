@@ -56,3 +56,24 @@ Projection Circle::Project(const Vector& axis) const
 
 	return Projection(start, end);
 }
+
+OrderedPair* Circle::GetClosestPoint(const OrderedPair& op)
+{
+	Vector *closestPoint;
+
+	Vector distanceBetweenCentreAndPoint(*(Vector(op) - Vector(*centre)));
+
+	if (distanceBetweenCentreAndPoint.Length() > radius)
+	{
+		Vector normalisedDistance = distanceBetweenCentreAndPoint.Normalise();
+		Vector *pointOnCircumference = normalisedDistance.Times(radius);
+		closestPoint = Vector(*centre) + Vector(*pointOnCircumference);
+		delete pointOnCircumference;
+	}
+	else
+	{
+		closestPoint = new Vector(op);
+	}
+
+	return closestPoint;
+}
