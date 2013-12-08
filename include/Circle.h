@@ -21,7 +21,7 @@ class Circle : public Shape
 		OrderedPair& GetCentre() const;
 		Radius GetRadius() const;
 		virtual Projection Project(const Vector& axis) const;
-		OrderedPair* GetClosestPoint(const OrderedPair& op);
+		OrderedPair* GetClosestPoint(const OrderedPair& op) const;
 };
 
 #endif /* CIRCLE_H */

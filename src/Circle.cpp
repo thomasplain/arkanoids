@@ -57,7 +57,7 @@ Projection Circle::Project(const Vector& axis) const
 	return Projection(start, end);
 }
 
-OrderedPair* Circle::GetClosestPoint(const OrderedPair& op)
+OrderedPair* Circle::GetClosestPoint(const OrderedPair& op) const
 {
 	Vector *closestPoint;
 

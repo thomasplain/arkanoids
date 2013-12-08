@@ -90,3 +90,39 @@ TEST(CollisionCheckTests, DetectsCollisionBetweenTwoCirclesOnFortyFiveDegAxis)
 	
 	ASSERT_TRUE(CollisionCheck::collisionOccurred(c1, c2));
 }
+
+TEST(CollisionCheckTests, DetectsNonCollisionBetweenBoxAndCircleOnXAndYAxes)
+{
+	Circle c(Point(1, 1), 3); Box b(Point(1, 6), 2, 2);
+
+	ASSERT_FALSE(CollisionCheck::collisionOccurred(c, b));
+
+	b = Box(Point(5, 1), 2, 2);
+
+	ASSERT_FALSE(CollisionCheck::collisionOccurred(c, b));
+}
+
+TEST(CollisionCheckTests, DetectsCollisionBetweenBoxAndCircleOnXAndYAxes)
+{
+	Circle c(Point(1, 1), 3); Box b(Point(1, 5), 2, 2);
+
+	ASSERT_TRUE(CollisionCheck::collisionOccurred(c, b));
+
+	b = Box(Point(3, 1), 2, 2);
+
+	ASSERT_TRUE(CollisionCheck::collisionOccurred(c, b));
+}
+
+TEST(CollisionCheckTests, DetectsNonCollisionBetweenBoxAndCircleOnCorner)
+{
+	Box b(Point(-1, 1), 2, 2); Circle c(Point(1.9, 1.9), 1);
+
+	ASSERT_FALSE(CollisionCheck::collisionOccurred(b, c));
+}
+
+TEST(CollisionCheckTests, DetectsCollisionBetweenBoxAndCircleOnCorner)
+{
+	Box b(Point(-1, 1), 2, 2); Circle c(Point(1.5, 1.5), 1);
+
+	ASSERT_TRUE(CollisionCheck::collisionOccurred(b, c));
+}
