@@ -126,3 +126,11 @@ TEST(CollisionCheckTests, DetectsCollisionBetweenBoxAndCircleOnCorner)
 
 	ASSERT_TRUE(CollisionCheck::collisionOccurred(b, c));
 }
+
+TEST(CollisionCheckTests, DetectsCollisionBetweenBallAndWall)
+{
+	Box wall(Point(-320, 480), 0, 480);
+	Circle ball(Point(-315, 240), 10);
+
+	ASSERT_TRUE(CollisionCheck::collisionOccurred(ball, wall));
+}
