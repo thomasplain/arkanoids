@@ -23,6 +23,7 @@ Main: Main.o \
 	Circle_UnitTests.o Circle.o \
 	Vector_UnitTests.o Vector.o \
 	Projection_UnitTests.o Projection.o \
-	CollisionCheck_UnitTests.o CollisionCheck.o
+	CollisionCheck_UnitTests.o CollisionCheck.o \
+	Ball_UnitTests.o Ball.o
 	$(CXX) -o arkanoids $(CXXFLAGS) $^ $(LIBGTEST)
 	./arkanoids
