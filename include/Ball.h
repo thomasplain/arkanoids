@@ -11,7 +11,7 @@ class Ball
 	public:
 	Ball() : callCount(0), position(0, 0) {};
 	void setVelocity(Vector newVelocity);
-	void updatePosition();
+	void updatePosition(int currentTime);
 	Vector getPosition();
 };
 
