@@ -5,11 +5,10 @@
 
 class Ball
 {
-	int callCount;
 	Vector position;
 	Vector velocity;
 	public:
-	Ball() : callCount(0), position(0, 0) {};
+	Ball() : position(0, 0) {};
 	void setVelocity(Vector newVelocity);
 	void updatePosition(int currentTime);
 	Vector getPosition();
