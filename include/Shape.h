@@ -8,6 +8,9 @@ class Shape
 {
 public:
 	virtual Projection Project(const Vector& axis) const = 0;
+	virtual int getNumVertices() const = 0;
+	virtual Vector getVertex(int vertexIndex) const = 0;
+	virtual bool isVertex(const Vector& point) const = 0;
 };
 
 #endif // SHAPE_H_

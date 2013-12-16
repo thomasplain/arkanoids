@@ -3,10 +3,10 @@
 
 class OrderedPair;
 class Projection;
-class Vector;
 typedef float Radius;
 
 #include "Shape.h"
+#include "Vector.h"
 
 class Circle : public Shape
 {
@@ -22,6 +22,9 @@ class Circle : public Shape
 		Radius GetRadius() const;
 		virtual Projection Project(const Vector& axis) const;
 		OrderedPair* GetClosestPoint(const OrderedPair& op) const;
+		virtual int getNumVertices() const { return 16; };
+		virtual Vector getVertex(int vertexNumber) const;
+		virtual bool isVertex(const Vector& point) const { return false; };
 };
 
 #endif /* CIRCLE_H */

@@ -96,7 +96,7 @@ TEST(CircleTests, GetClosestPointReturnsPointOnCircumferenceIfOutside)
 	delete closest;
 }
 
-TEST(CircleTest, ClosestPointIsSekfIfInsideCircle)
+TEST(CircleTests, ClosestPointIsSelfIfInsideCircle)
 {
 	Circle c(Point(0, 0), 2);
 	OrderedPair p(1, 0);
@@ -104,4 +104,17 @@ TEST(CircleTest, ClosestPointIsSekfIfInsideCircle)
 	OrderedPair *closest = c.GetClosestPoint(p);
 	ASSERT_EQ(p, *closest);
 	delete closest;
+}
+
+TEST(CircleTests, NumberOfVerticesIsTwelveForNow)
+{
+	Circle c(Point(0, 0), 2);
+	EXPECT_EQ(16, c.getNumVertices());
+}
+
+TEST(CircleTests, getVertexReturnsVerticesInEvenSteps)
+{
+	Circle c(Point(0, 0), 1);
+
+	ASSERT_EQ(Point(1, 0), c.getVertex(0));
 }

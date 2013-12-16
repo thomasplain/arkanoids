@@ -168,3 +168,10 @@ TEST_F(BoxTests, ClosestPointIsOnEdgeDirectlyHorizontalAndShit)
 	std::auto_ptr<OrderedPair> closest2(b.GetClosestPoint(p));
 	EXPECT_EQ(OrderedPair(1, 0.5), *closest2);
 }
+
+TEST_F(BoxTests, NumOfVerticesIsFour)
+{
+	Box b(Point(1, 1), 19, 3087);
+
+	EXPECT_EQ(4, b.getNumVertices());
+}

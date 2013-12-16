@@ -77,3 +77,8 @@ OrderedPair* Circle::GetClosestPoint(const OrderedPair& op) const
 
 	return closestPoint;
 }
+
+Vector Circle::getVertex(int vertexNumber) const
+{
+	return Vector(1, 0);
+};
