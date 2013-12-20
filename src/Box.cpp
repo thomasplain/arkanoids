@@ -85,3 +85,26 @@ OrderedPair* Box::GetClosestPoint(const OrderedPair& op) const
 	
 	return *centre + Vector(xValue, yValue);
 }
+
+Vector Box::getVertex(int vertexNumber) const
+{
+	std::auto_ptr<Vector> vertex(new Vector(*topLeftCorner));
+	switch (vertexNumber)
+	{
+		case 0:
+			break;
+		case 1:
+			vertex = std::auto_ptr<Vector>(Vector(*topLeftCorner) + Vector(0, -boxHeight));
+			break;
+		case 2:
+			vertex = std::auto_ptr<Vector>(Vector(*topLeftCorner) + Vector(boxWidth, -boxHeight));
+			break;
+		case 3:
+			vertex = std::auto_ptr<Vector>(Vector(*topLeftCorner) + Vector(boxWidth, 0));
+			break;
+		default:
+			break;
+	}
+
+	return *vertex;
+}

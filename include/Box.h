@@ -21,7 +21,7 @@ public:
 	virtual Projection Project(const Vector& axis) const;
 	OrderedPair* GetClosestPoint(const OrderedPair& op) const;
 	virtual int getNumVertices() const { return 4; };
-	virtual Vector getVertex(int vertexNumber) const { return Vector(0, 0); };
+	virtual Vector getVertex(int vertexNumber) const;
 	virtual bool isVertex(const Vector& point) const { return false; };
 };
 
