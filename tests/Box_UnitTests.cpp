@@ -181,9 +181,15 @@ TEST_F(BoxTests, GetVerticesTracesBoxOutline)
 	Box b(Point(3, 3), 1, 1);
 
 	EXPECT_EQ(Point(3, 3), b.getVertex(0));
-	EXPECT_EQ(3, b.getVertex(1).GetX());
-	EXPECT_EQ(2, b.getVertex(1).GetY());
 	EXPECT_EQ(Point(3, 2), b.getVertex(1));
 	EXPECT_EQ(Point(4, 2), b.getVertex(2));
 	EXPECT_EQ(Point(4, 3), b.getVertex(3));
+}
+
+TEST_F(BoxTests, GetVertexWrapsAround)
+{
+	Box b(Point(3, 3), 1, 1);
+
+	EXPECT_EQ(Point(3, 3), b.getVertex(4));
+	EXPECT_EQ(Point(4, 2), b.getVertex(6));
 }

@@ -89,6 +89,7 @@ OrderedPair* Box::GetClosestPoint(const OrderedPair& op) const
 Vector Box::getVertex(int vertexNumber) const
 {
 	std::auto_ptr<Vector> vertex(new Vector(*topLeftCorner));
+	vertexNumber = vertexNumber % getNumVertices();
 	switch (vertexNumber)
 	{
 		case 0:
