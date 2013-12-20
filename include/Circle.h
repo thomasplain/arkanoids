@@ -23,7 +23,7 @@ class Circle : public Shape
 		OrderedPair* GetClosestPoint(const OrderedPair& op) const;
 		virtual int getNumVertices() const { return 16; };
 		virtual Vector getVertex(int vertexNumber) const;
-		virtual bool isVertex(const Vector& point) const { return false; };
+		virtual bool isVertex(const OrderedPair& point) const { return false; };
 };
 
 #endif /* CIRCLE_H */

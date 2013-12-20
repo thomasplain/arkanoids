@@ -193,3 +193,10 @@ TEST_F(BoxTests, GetVertexWrapsAround)
 	EXPECT_EQ(Point(3, 3), b.getVertex(4));
 	EXPECT_EQ(Point(4, 2), b.getVertex(6));
 }
+
+TEST_F(BoxTests, isVertexReturnsTrueForCorners)
+{
+	Box b(Point(2, 2), 4, 2);
+
+//	EXPECT_TRUE(b.isVertex(Point(2, 2)));
+}

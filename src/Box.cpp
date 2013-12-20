@@ -9,17 +9,18 @@
 
 Box::Box(const OrderedPair& p, float width, float height) : boxWidth(width), boxHeight(height)
 {
-	topLeftCorner = new Point(p);
+	setCorners(p);
 }
 
 Box::Box(const OrderedPair &firstCorner, const OrderedPair &oppositeCorner)
 {
-	float top = std::max(firstCorner.GetY(), oppositeCorner.GetY());
-	float left = std::min(firstCorner.GetX(), oppositeCorner.GetX());
-	topLeftCorner = new Point(left, top);
-
 	boxWidth = std::fabs(firstCorner.GetX() - oppositeCorner.GetX());
 	boxHeight = std::fabs(firstCorner.GetY() - oppositeCorner.GetY());
+
+	float top = std::max(firstCorner.GetY(), oppositeCorner.GetY());
+	float left = std::min(firstCorner.GetX(), oppositeCorner.GetX());
+
+	setCorners(Point(left, top));
 }
 
 Box::Box(const Box &b)
@@ -27,12 +28,28 @@ Box::Box(const Box &b)
 	this->boxHeight = b.boxHeight;
 	this->boxWidth = b.boxWidth;
 
-	this->topLeftCorner = new Point(*(b.topLeftCorner));
+	setCorners(b.getVertex(0));
 }
 
-OrderedPair& Box::GetFirstVertex()
+Box::~Box()
 {
-	return *topLeftCorner;
+	delete corners[0];
+	delete corners[1];
+	delete corners[2];
+	delete corners[3];
+}
+
+void Box::setCorners(const OrderedPair& topLeftCorner)
+{
+	corners[0] = new Vector(topLeftCorner);
+	corners[1] = Vector(topLeftCorner) + Vector(0, -boxHeight);
+	corners[2] = Vector(topLeftCorner) + Vector(boxWidth, -boxHeight);
+	corners[3] = Vector(topLeftCorner) + Vector(boxWidth, 0);
+}
+
+const OrderedPair& Box::GetFirstVertex()
+{
+	return getVertex(0);
 }
 
 float Box::GetWidth() const
@@ -47,30 +64,20 @@ float Box::GetHeight() const
 
 Projection Box::Project(const Vector& axis) const
 {
-	Vector firstVertex(*topLeftCorner);	
-
-	Vector *secondVertex = firstVertex + Vector(0, -boxHeight),
-		*thirdVertex = firstVertex + Vector(boxWidth, -boxHeight),
-		*fourthVertex = firstVertex + Vector(boxWidth, 0);
-
-	float firstVertexProj = axis.Normalise().Dot(firstVertex);
-	float secondVertexProj = axis.Normalise().Dot(*secondVertex);
-	float thirdVertexProj = axis.Normalise().Dot(*thirdVertex);
-	float fourthVertexProj = axis.Normalise().Dot(*fourthVertex);
+	float firstVertexProj = axis.Normalise().Dot(getVertex(0));
+	float secondVertexProj = axis.Normalise().Dot(getVertex(1));
+	float thirdVertexProj = axis.Normalise().Dot(getVertex(2));
+	float fourthVertexProj = axis.Normalise().Dot(getVertex(3));
 
 	float start = std::min(firstVertexProj, std::min(secondVertexProj, std::min(thirdVertexProj, fourthVertexProj)));
 	float end = std::max(firstVertexProj, std::max(secondVertexProj, std::max(thirdVertexProj, fourthVertexProj)));
-
-	delete secondVertex;
-	delete thirdVertex;
-	delete fourthVertex;
 
 	return Projection(start, end);
 }
 
 OrderedPair* Box::GetClosestPoint(const OrderedPair& op) const
 {
-	std::auto_ptr<Vector> centre(Vector(*topLeftCorner) + Vector(boxWidth/2, -boxHeight/2));
+	std::auto_ptr<Vector> centre(Vector(getVertex(0)) + Vector(boxWidth/2, -boxHeight/2));
 	std::auto_ptr<Vector> difference(Vector(op) - *centre);
 	float xValue = difference->GetX(), yValue = difference->GetY(); 
 
@@ -88,24 +95,6 @@ OrderedPair* Box::GetClosestPoint(const OrderedPair& op) const
 
 Vector Box::getVertex(int vertexNumber) const
 {
-	std::auto_ptr<Vector> vertex(new Vector(*topLeftCorner));
 	vertexNumber = vertexNumber % getNumVertices();
-	switch (vertexNumber)
-	{
-		case 0:
-			break;
-		case 1:
-			vertex = std::auto_ptr<Vector>(Vector(*topLeftCorner) + Vector(0, -boxHeight));
-			break;
-		case 2:
-			vertex = std::auto_ptr<Vector>(Vector(*topLeftCorner) + Vector(boxWidth, -boxHeight));
-			break;
-		case 3:
-			vertex = std::auto_ptr<Vector>(Vector(*topLeftCorner) + Vector(boxWidth, 0));
-			break;
-		default:
-			break;
-	}
-
-	return *vertex;
+	return *corners[vertexNumber];
 }
