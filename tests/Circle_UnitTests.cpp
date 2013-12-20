@@ -121,3 +121,11 @@ TEST(CircleTests, getVertexReturnsVerticesInEvenSteps)
 	EXPECT_EQ(Point(0, 1), c.getVertex(8));
 	EXPECT_EQ(Point(1 - 1.0 / sqrt(2), 1 - 1.0 / sqrt(2)), c.getVertex(10));
 }
+
+TEST(CircleTests, getVertexWrapsAround)
+{
+	Circle c(Point(1, 1), 1);
+
+	EXPECT_EQ(Point(2, 1), c.getVertex(c.getNumVertices()));
+	EXPECT_EQ(Point(0, 1), c.getVertex(c.getNumVertices() + 8));
+}
