@@ -82,17 +82,17 @@ TEST(CircleTests, GetClosestPointReturnsPointOnCircumferenceIfOutside)
 	OrderedPair p(0, 3);
 
 	OrderedPair *closest = c.GetClosestPoint(p);
-	ASSERT_EQ(OrderedPair(0, 2), *closest);
+	EXPECT_EQ(OrderedPair(0, 2), *closest);
 	delete closest;
 
 	p = OrderedPair(3, 0);
 	closest = c.GetClosestPoint(p);
-	ASSERT_EQ(OrderedPair(2, 0), *closest);
+	EXPECT_EQ(OrderedPair(2, 0), *closest);
 	delete closest;
 
 	p = OrderedPair(-3, 0);
 	closest = c.GetClosestPoint(p);
-	ASSERT_EQ(OrderedPair(-2, 0), *closest);
+	EXPECT_EQ(OrderedPair(-2, 0), *closest);
 	delete closest;
 }
 
@@ -102,7 +102,7 @@ TEST(CircleTests, ClosestPointIsSelfIfInsideCircle)
 	OrderedPair p(1, 0);
 
 	OrderedPair *closest = c.GetClosestPoint(p);
-	ASSERT_EQ(p, *closest);
+	EXPECT_EQ(p, *closest);
 	delete closest;
 }
 
@@ -114,7 +114,10 @@ TEST(CircleTests, NumberOfVerticesIsTwelveForNow)
 
 TEST(CircleTests, getVertexReturnsVerticesInEvenSteps)
 {
-	Circle c(Point(0, 0), 1);
+	Circle c(Point(1, 1), 1);
 
-	ASSERT_EQ(Point(1, 0), c.getVertex(0));
+	EXPECT_EQ(Point(2, 1), c.getVertex(0));
+	EXPECT_EQ(Point(1.0 / sqrt(2) + 1, 1.0 / sqrt(2) + 1), c.getVertex(2));
+	EXPECT_EQ(Point(0, 1), c.getVertex(8));
+	EXPECT_EQ(Point(1 - 1.0 / sqrt(2), 1 - 1.0 / sqrt(2)), c.getVertex(10));
 }

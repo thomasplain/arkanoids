@@ -1,6 +1,8 @@
 #ifndef ORDEREDPAIR_H_
 #define ORDEREDPAIR_H_
 
+#include <cmath>
+
 class OrderedPair
 {
 protected:
@@ -22,7 +24,8 @@ public:
 
 	bool operator==(const OrderedPair &p) const
 	{
-		return ((x == p.GetX()) && (y == p.GetY()));
+		return ((std::fabs(x - p.GetX()) <= 0.000001
+			&& std::fabs(y - p.GetY()) <= 0.000001));
 	}
 
 };

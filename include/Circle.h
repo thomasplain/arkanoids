@@ -3,7 +3,6 @@
 
 class OrderedPair;
 class Projection;
-typedef float Radius;
 
 #include "Shape.h"
 #include "Vector.h"
@@ -11,15 +10,15 @@ typedef float Radius;
 class Circle : public Shape
 {
 	OrderedPair *centre;
-	Radius radius;
+	float radius;
 	public:
-		Circle(const OrderedPair& p, Radius r = 0);
+		Circle(const OrderedPair& p, float r = 0);
 		Circle(const Circle &c);
 		Circle& operator=(const Circle &c);
 		~Circle();
 		void Translate(OrderedPair& translation);
 		OrderedPair& GetCentre() const;
-		Radius GetRadius() const;
+		float GetRadius() const;
 		virtual Projection Project(const Vector& axis) const;
 		OrderedPair* GetClosestPoint(const OrderedPair& op) const;
 		virtual int getNumVertices() const { return 16; };

@@ -3,9 +3,12 @@
 #include "Vector.h"
 #include "OrderedPair.h"
 #include "Projection.h"
-#include <iostream>
+#include <cmath>
+#include <memory>
 
-Circle::Circle(const OrderedPair& p, Radius r)
+const float PI = 3.1415926535897;
+
+Circle::Circle(const OrderedPair& p, float r)
 {
 	centre = new Point(p);
 	radius = r;
@@ -41,7 +44,7 @@ OrderedPair& Circle::GetCentre() const
 	return *centre;
 }
 
-Radius Circle::GetRadius() const
+float Circle::GetRadius() const
 {
 	return radius;
 }
@@ -80,5 +83,8 @@ OrderedPair* Circle::GetClosestPoint(const OrderedPair& op) const
 
 Vector Circle::getVertex(int vertexNumber) const
 {
-	return Vector(1, 0);
+	float theta = (2 * PI / getNumVertices()) * vertexNumber;
+	std::auto_ptr<Vector> vertex(new Vector(radius * std::cos(theta) + centre->GetX(), 		radius * std::sin(theta) + centre->GetY()));
+
+	return *vertex;
 };
