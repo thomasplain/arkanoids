@@ -203,3 +203,10 @@ TEST_F(BoxTests, isVertexReturnsTrueForCorners)
 	EXPECT_TRUE(b.isVertex(Point(6, 0)));
 	EXPECT_TRUE(b.isVertex(Point(2, 0)));
 }
+
+TEST_F(BoxTests, isVertexReturnsFalseForEdges)
+{
+	Box b(Point(-3, 4), 2, 3);
+
+	EXPECT_FALSE(b.isVertex(Point(-2, 4)));
+}
