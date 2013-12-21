@@ -108,3 +108,18 @@ Vector Box::getVertex(int vertexNumber) const
 	vertexNumber = vertexNumber % getNumVertices();
 	return *corners[vertexNumber];
 }
+
+bool Box::isVertex(const OrderedPair& point) const
+{
+	int vertexNumber = 0;
+	bool vertexFound = false;
+
+	while (vertexNumber < getNumVertices() &&
+					!vertexFound)
+	{
+		vertexFound = getVertex(vertexNumber) == point;
+		vertexNumber++;
+	}
+
+	return vertexFound;
+}

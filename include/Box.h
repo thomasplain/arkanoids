@@ -25,7 +25,7 @@ public:
 	OrderedPair* GetClosestPoint(const OrderedPair& op) const;
 	virtual int getNumVertices() const { return sizeof(corners)/sizeof(corners[0]); };
 	virtual Vector getVertex(int vertexNumber) const;
-	virtual bool isVertex(const OrderedPair& point) const { return true; };
+	virtual bool isVertex(const OrderedPair& point) const;
 };
 
 #endif /* BOX_H_ */
