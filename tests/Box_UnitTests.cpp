@@ -18,7 +18,7 @@ protected:
 
 	void compareBoxes(Box b)
 	{
-		ASSERT_EQ(b.GetFirstVertex(), expected->GetFirstVertex());
+		ASSERT_EQ(b.getVertex(0), expected->getVertex(0));
 		ASSERT_EQ(b.GetWidth(), expected->GetWidth());
 		ASSERT_EQ(b.GetHeight(), expected->GetHeight());
 	}
@@ -35,7 +35,7 @@ TEST_F(BoxTests, InitialiseWithTopLeftCornerWidthAndHeight)
 	Point p(4, 4);
 	Box b(p, 3, 2);
 
-	ASSERT_EQ(b.GetFirstVertex(), p);
+	ASSERT_EQ(b.getVertex(0), p);
 	ASSERT_EQ(b.GetWidth(), 3);
 	ASSERT_EQ(b.GetHeight(), 2);
 }

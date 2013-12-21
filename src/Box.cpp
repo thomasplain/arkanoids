@@ -57,11 +57,6 @@ void Box::setCorners(const OrderedPair& topLeftCorner)
 	corners[3] = Vector(topLeftCorner) + Vector(boxWidth, 0);
 }
 
-const OrderedPair& Box::GetFirstVertex()
-{
-	return getVertex(0);
-}
-
 float Box::GetWidth() const
 {
 	return boxWidth;

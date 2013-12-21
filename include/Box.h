@@ -18,7 +18,6 @@ public:
 	Box(const Box &b);
 	const Box& operator=(const Box& b);
 	~Box();
-	const OrderedPair& GetFirstVertex();
 	float GetWidth() const;
 	float GetHeight() const;
 	virtual Projection Project(const Vector& axis) const;
