@@ -129,3 +129,14 @@ TEST(CircleTests, getVertexWrapsAround)
 	EXPECT_EQ(Point(2, 1), c.getVertex(c.getNumVertices()));
 	EXPECT_EQ(Point(0, 1), c.getVertex(c.getNumVertices() + 8));
 }
+
+TEST(CircleTests, PointsOnCircumferenceAreVertices)
+{
+	Circle c(Point(0, 0), 1);
+	
+	EXPECT_TRUE(c.isVertex(Point(1, 0)));
+	EXPECT_TRUE(c.isVertex(Point(1.0 / sqrt(2), 1.0 / sqrt(2))));
+
+	EXPECT_FALSE(c.isVertex(Point(90, 50)));
+	EXPECT_FALSE(c.isVertex(Point(0, 0)));
+}

@@ -87,4 +87,11 @@ Vector Circle::getVertex(int vertexNumber) const
 	std::auto_ptr<Vector> vertex(new Vector(radius * std::cos(theta) + centre->GetX(), 		radius * std::sin(theta) + centre->GetY()));
 
 	return *vertex;
-};
+}
+
+bool Circle::isVertex(const OrderedPair& point) const
+{
+	std::auto_ptr<Vector> centreToPoint(Vector(point) - Vector(*centre));
+
+	return (fabs(centreToPoint->Length() - radius) <= 0.00001);
+}
