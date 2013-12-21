@@ -47,7 +47,7 @@ TEST_F(BoxTests, InitialiseWithTwoOppositeCorners)
 	expect(Box(topLeft, 2, 2));
 	Box b(topLeft, bottomRight);
 	compareBoxes(b);
-
+	
 	b = Box(bottomRight, topLeft);
 	compareBoxes(b);
 

@@ -16,6 +16,7 @@ public:
 	Box(const OrderedPair& p, float width, float height);
 	Box(const OrderedPair& firstCorner, const OrderedPair &oppositeCorner);
 	Box(const Box &b);
+	const Box& operator=(const Box& b);
 	~Box();
 	const OrderedPair& GetFirstVertex();
 	float GetWidth() const;

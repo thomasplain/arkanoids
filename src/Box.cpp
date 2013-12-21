@@ -19,7 +19,7 @@ Box::Box(const OrderedPair &firstCorner, const OrderedPair &oppositeCorner)
 
 	float top = std::max(firstCorner.GetY(), oppositeCorner.GetY());
 	float left = std::min(firstCorner.GetX(), oppositeCorner.GetX());
-
+	
 	setCorners(Point(left, top));
 }
 
@@ -27,8 +27,18 @@ Box::Box(const Box &b)
 {
 	this->boxHeight = b.boxHeight;
 	this->boxWidth = b.boxWidth;
+	
+	setCorners(b.getVertex(0));
+}
+
+const Box& Box::operator=(const Box& b)
+{
+	this->boxHeight = b.boxHeight;
+	this->boxWidth = b.boxWidth;
 
 	setCorners(b.getVertex(0));
+
+	return *this;
 }
 
 Box::~Box()
