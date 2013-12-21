@@ -210,3 +210,10 @@ TEST_F(BoxTests, isVertexReturnsFalseForEdges)
 
 	EXPECT_FALSE(b.isVertex(Point(-2, 4)));
 }
+
+TEST_F(BoxTests, PointsNotOnShapeArentVertices)
+{
+	Box b(Point(37, 91), 30, 45);
+
+	EXPECT_FALSE(b.isVertex(Point(0, 0)));
+}
