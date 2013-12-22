@@ -3,6 +3,7 @@
 #include "Vector.h"
 #include "OrderedPair.h"
 #include "Projection.h"
+#include "AxisSet.h"
 #include <cmath>
 #include <memory>
 
@@ -94,4 +95,22 @@ bool Circle::isVertex(const OrderedPair& point) const
 	std::auto_ptr<Vector> centreToPoint(Vector(point) - Vector(*centre));
 
 	return (fabs(centreToPoint->Length() - radius) <= 0.00001);
+}
+
+AxisSet* Circle::getSeparatingAxes(const Shape* s)
+{
+	AxisSet *as =  new AxisSet();
+
+	std::auto_ptr<OrderedPair> closestPoint(s->getClosestPoint(getCentre()));
+
+	if (s->isVertex(*closestPoint))
+	{
+			std::auto_ptr<OrderedPair> closestPointToVertex(getClosestPoint(*closestPoint));
+		Vector *separatingAxis = Vector(*closestPointToVertex)
+				- Vector(*closestPoint);
+		as->add(separatingAxis->Normalise());
+		delete separatingAxis;
+	}
+
+	return as;
 }

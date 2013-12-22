@@ -1,9 +1,12 @@
 #include "Circle.h"
+#include "Box.h"
 #include "Point.h"
 #include "Projection.h"
 #include "Vector.h"
+#include "AxisSet.h"
 #include "gtest/gtest.h"
 #include <cmath>
+#include <memory>
 #include <iostream>
 
 TEST(CircleTests, CentreInitialisedByConstructor)
@@ -139,4 +142,35 @@ TEST(CircleTests, PointsOnCircumferenceAreVertices)
 
 	EXPECT_FALSE(c.isVertex(Point(90, 50)));
 	EXPECT_FALSE(c.isVertex(Point(0, 0)));
+}
+
+TEST(CircleTests, NoSeparatingAxisWhenDirectlyAboveABox)
+{
+	Box b(Point(2, 2), 3, 3);
+	Circle c(Point(3, 4), 1);
+
+	std::auto_ptr<AxisSet> separatingAxes(c.getSeparatingAxes(&b));
+
+	EXPECT_EQ(0, separatingAxes->size());
+}
+
+TEST(CircleTests, NoSeparatingAxisWhenDirectlyBesideABox)
+{
+	Box b(Point(2, 2), 3, 3);
+	Circle c(Point(7, 1), 1);
+
+	std::auto_ptr<AxisSet> separatingAxes(c.getSeparatingAxes(&b));
+
+	EXPECT_EQ(0, separatingAxes->size());
+}
+
+TEST(CircleTests, ReturnsSeparatingAxisWhenInvertexVoronoiRegionOfBox)
+{
+	Box b(Point(1, 4), 2, 2);
+	Circle c(Point(4, 5), 1);
+
+	std::auto_ptr<AxisSet> separatingAxes(c.getSeparatingAxes(&b));
+
+	EXPECT_EQ(1, separatingAxes->size());
+	EXPECT_EQ(Point(1.0 / sqrt(2), 1.0 / sqrt(2)), separatingAxes->getAxis(0));
 }
