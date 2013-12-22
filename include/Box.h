@@ -3,9 +3,9 @@
 
 class OrderedPair;
 class Projection;
+class AxisSet;
 
 #include "Shape.h"
-#include "Vector.h"
 
 class Box : public Shape
 {
@@ -25,6 +25,8 @@ public:
 	virtual int getNumVertices() const { return sizeof(corners)/sizeof(corners[0]); };
 	virtual Vector getVertex(int vertexNumber) const;
 	virtual bool isVertex(const OrderedPair& point) const;
+
+	virtual AxisSet* getSeparatingAxes(const Shape&);
 };
 
 #endif /* BOX_H_ */

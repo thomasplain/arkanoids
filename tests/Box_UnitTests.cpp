@@ -217,3 +217,14 @@ TEST_F(BoxTests, PointsNotOnShapeArentVertices)
 
 	EXPECT_FALSE(b.isVertex(Point(0, 0)));
 }
+
+TEST_F(BoxTests, GetSeparatingAxesReturnsEdgeNormals)
+{
+	Box b(Point(1, 1), 3, 3);
+
+	AxisSet *separatingAxes = b.getSeparatingAxes();
+
+	EXPECT_EQ(2, separatingAxes->length());
+	EXPECT_EQ(OrderedPair(1, 0), separatingAxes->getAxis(0));
+	EXPECT_EQ(OrderedPair(0, 1), separatingAxes->getAxis(1));
+}
