@@ -118,3 +118,8 @@ bool Box::isVertex(const OrderedPair& point) const
 
 	return vertexFound;
 }
+
+AxisSet* Box::getSeparatingAxes(const Shape* other)
+{
+
+}

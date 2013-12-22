@@ -26,7 +26,7 @@ public:
 	virtual Vector getVertex(int vertexNumber) const;
 	virtual bool isVertex(const OrderedPair& point) const;
 
-	virtual AxisSet* getSeparatingAxes(const Shape&);
+	virtual AxisSet* getSeparatingAxes(const Shape* other = 0);
 };
 
 #endif /* BOX_H_ */

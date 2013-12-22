@@ -24,6 +24,7 @@ Main: Main.o \
 	Vector_UnitTests.o Vector.o \
 	Projection_UnitTests.o Projection.o \
 	CollisionCheck_UnitTests.o CollisionCheck.o \
-	Ball_UnitTests.o Ball.o
+	Ball_UnitTests.o Ball.o \
+	AxisSet_UnitTests.o AxisSet.o
 	$(CXX) -o arkanoids $(CXXFLAGS) $^ $(LIBGTEST)
 	./arkanoids
