@@ -20,3 +20,18 @@ const OrderedPair& AxisSet::getAxis(int axisNum) const
 {
 	return axisList[axisNum];
 }
+
+void AxisSet::combineWith(const AxisSet& as)
+{
+	for (int asIndex = 0; asIndex < as.size(); asIndex++)
+	{
+		bool noMatchFound = true;
+		int thisIndex = 0;
+		while (noMatchFound && thisIndex < size())
+		{
+			noMatchFound = !(as.getAxis(asIndex) == getAxis(thisIndex));
+			thisIndex++;
+		}
+		if (noMatchFound) add(as.getAxis(asIndex));
+	}
+}

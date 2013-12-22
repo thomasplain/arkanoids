@@ -12,6 +12,7 @@ class AxisSet
 		void add(const OrderedPair& op);
 		void remove(int axisNumToRemove);
 		const OrderedPair& getAxis(int axisNum) const;
+		void combineWith(const AxisSet& as);
 };
 
 
