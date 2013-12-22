@@ -18,10 +18,14 @@ public:
 	Box(const Box &b);
 	const Box& operator=(const Box& b);
 	~Box();
+
 	float GetWidth() const;
 	float GetHeight() const;
 	virtual Projection Project(const Vector& axis) const;
+
 	OrderedPair* GetClosestPoint(const OrderedPair& op) const;
+	virtual	Vector getCentre() const;
+
 	virtual int getNumVertices() const { return sizeof(corners)/sizeof(corners[0]); };
 	virtual Vector getVertex(int vertexNumber) const;
 	virtual bool isVertex(const OrderedPair& point) const;

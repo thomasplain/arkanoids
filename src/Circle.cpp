@@ -39,7 +39,7 @@ void Circle::Translate(OrderedPair& translation)
 	centre->TranslateBy(translation);
 }
 
-OrderedPair& Circle::GetCentre() const
+Vector Circle::getCentre() const
 {
 	return *centre;
 }

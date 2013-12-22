@@ -16,7 +16,7 @@ bool CollisionCheck::collisionOccurred(const Box &b1, const Box &b2)
 
 bool CollisionCheck::collisionOccurred(const Circle &c1, const Circle &c2)
 {
-	std::auto_ptr<Vector> separatingAxis(Vector(c1.GetCentre()) - Vector(c2.GetCentre()));
+	std::auto_ptr<Vector> separatingAxis(Vector(c1.getCentre()) - Vector(c2.getCentre()));
 	return c1.Project(xAxis).OverlapsWith(c2.Project(xAxis)) &&
 		c1.Project(yAxis).OverlapsWith(c2.Project(yAxis)) &&
 		c1.Project(*separatingAxis).OverlapsWith(c2.Project(*separatingAxis));
@@ -28,7 +28,7 @@ bool CollisionCheck::collisionOccurred(const Circle &c, const Box &b)
 		c.Project(xAxis).OverlapsWith(b.Project(xAxis));
 	if (collision)
 	{
-		std::auto_ptr<OrderedPair> closestPointOnBox(b.GetClosestPoint(c.GetCentre()));
+		std::auto_ptr<OrderedPair> closestPointOnBox(b.GetClosestPoint(c.getCentre()));
 		std::auto_ptr<OrderedPair> closestPointOnCircle(c.GetClosestPoint(*closestPointOnBox));
 		if (*closestPointOnBox == *closestPointOnCircle) return collision;
 		std::auto_ptr<Vector> separatingAxis(Vector(*closestPointOnBox) - Vector(*closestPointOnCircle));

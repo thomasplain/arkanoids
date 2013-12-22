@@ -17,7 +17,7 @@ class Circle : public Shape
 		Circle& operator=(const Circle &c);
 		~Circle();
 		void Translate(OrderedPair& translation);
-		OrderedPair& GetCentre() const;
+		virtual Vector getCentre() const;
 		float GetRadius() const;
 		virtual Projection Project(const Vector& axis) const;
 		OrderedPair* GetClosestPoint(const OrderedPair& op) const;

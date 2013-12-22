@@ -10,7 +10,7 @@ TEST(CircleTests, CentreInitialisedByConstructor)
 {
 	Circle c(Point(3, 2), 3);
 	
-	EXPECT_EQ(Point(3, 2), c.GetCentre());
+	EXPECT_EQ(Point(3, 2), c.getCentre());
 }
 
 TEST(CircleTests, RadiusInitialisedByConstructor)
@@ -28,7 +28,7 @@ TEST(CircleTests, TranslateMovesCentre)
 	
 	c.Translate(displacement);
 	
-	EXPECT_EQ(Point(3, 3), c.GetCentre());
+	EXPECT_EQ(Point(3, 3), c.getCentre());
 }
 
 TEST(CircleTests, OriginCentredProjectionIsSameOnAnyAxis)
