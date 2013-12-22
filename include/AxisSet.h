@@ -2,32 +2,15 @@
 #define AXISSET_H_
 
 #include "OrderedPair.h"
+#include <vector>
 
 class AxisSet
 {
-	OrderedPair *axis;
-	int numAxes;
+	std::vector<OrderedPair> axisList;
 	public:
-		AxisSet()
-		{
-			axis = new OrderedPair(0, 0);
-			numAxes = 0;
-		}
-		AxisSet(const AxisSet& as)
-		{
-			axis = new OrderedPair(*as.axis);
-		}
-		const AxisSet& operator=(const AxisSet& as)
-		{
-			axis = new OrderedPair(*as.axis);
-			return *this;
-		}
-		~AxisSet()
-		{
-			delete axis;
-		}
 		int size() const;
 		void add(const OrderedPair& op);
+		void remove(int axisNumToRemove);
 		const OrderedPair& getAxis(int axisNum) const;
 };
 
