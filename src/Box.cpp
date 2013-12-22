@@ -2,6 +2,7 @@
 #include "Point.h"
 #include "Projection.h"
 #include "Vector.h"
+#include "AxisSet.h"
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -121,5 +122,12 @@ bool Box::isVertex(const OrderedPair& point) const
 
 AxisSet* Box::getSeparatingAxes(const Shape* other)
 {
+	AxisSet* as = new AxisSet();
+	
+	std::auto_ptr<Vector> axis1(Vector(*corners[3]) - Vector(*corners[0]));
+	std::auto_ptr<Vector> axis2(Vector(*corners[0]) - Vector(*corners[1]));
 
+	as->add(axis1->Normalise()); as->add(axis2->Normalise());
+
+	return as;
 }

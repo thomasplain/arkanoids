@@ -223,9 +223,9 @@ TEST_F(BoxTests, GetSeparatingAxesReturnsEdgeNormals)
 {
 	Box b(Point(1, 1), 3, 3);
 
-	AxisSet *separatingAxes = b.getSeparatingAxes();
+	std::auto_ptr<AxisSet> separatingAxes(b.getSeparatingAxes());
 
-//	EXPECT_EQ(2, separatingAxes->size());
-//	EXPECT_EQ(OrderedPair(1, 0), separatingAxes->getAxis(0));
-//	EXPECT_EQ(OrderedPair(0, 1), separatingAxes->getAxis(1));
+	EXPECT_EQ(2, separatingAxes->size());
+	EXPECT_EQ(OrderedPair(1, 0), separatingAxes->getAxis(0));
+	EXPECT_EQ(OrderedPair(0, 1), separatingAxes->getAxis(1));
 }
