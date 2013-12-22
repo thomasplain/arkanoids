@@ -20,7 +20,7 @@ class Circle : public Shape
 		virtual Vector getCentre() const;
 		float GetRadius() const;
 		virtual Projection Project(const Vector& axis) const;
-		OrderedPair* GetClosestPoint(const OrderedPair& op) const;
+		virtual	OrderedPair* getClosestPoint(const OrderedPair& op) const;
 		virtual int getNumVertices() const { return 16; };
 		virtual Vector getVertex(int vertexNumber) const;
 		virtual bool isVertex(const OrderedPair& point) const;

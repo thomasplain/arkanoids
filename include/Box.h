@@ -23,7 +23,7 @@ public:
 	float GetHeight() const;
 	virtual Projection Project(const Vector& axis) const;
 
-	OrderedPair* GetClosestPoint(const OrderedPair& op) const;
+	virtual	OrderedPair* getClosestPoint(const OrderedPair& op) const;
 	virtual	Vector getCentre() const;
 
 	virtual int getNumVertices() const { return sizeof(corners)/sizeof(corners[0]); };

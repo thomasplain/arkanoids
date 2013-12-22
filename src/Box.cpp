@@ -81,7 +81,7 @@ Projection Box::Project(const Vector& axis) const
 	return Projection(start, end);
 }
 
-OrderedPair* Box::GetClosestPoint(const OrderedPair& op) const
+OrderedPair* Box::getClosestPoint(const OrderedPair& op) const
 {
 	std::auto_ptr<Vector> centre(Vector(getVertex(0)) + Vector(boxWidth/2, -boxHeight/2));
 	std::auto_ptr<Vector> difference(Vector(op) - *centre);
