@@ -83,25 +83,35 @@ Projection Box::Project(const Vector& axis) const
 
 OrderedPair* Box::getClosestVertex(const OrderedPair& op) const
 {
-	std::auto_ptr<Vector> centre(Vector(getVertex(0)) + Vector(boxWidth/2, -boxHeight/2));
-	std::auto_ptr<Vector> difference(Vector(op) - *centre);
+	Vector centre = getCentre();
+	std::auto_ptr<Vector> difference(Vector(op) - centre);
 	float xValue = difference->GetX(), yValue = difference->GetY(); 
-
-	if (fabs(xValue) >= boxWidth / 2)
-	{
-		xValue = (xValue > 0 ? 1 : -1) * boxWidth / 2;
-	}
-	if (fabs(yValue) >= boxHeight / 2)
-	{
-		yValue = (yValue > 0 ? 1 : -1) * boxHeight / 2;
-	}
 	
-	return *centre + Vector(xValue, yValue);
+	if (fabs(xValue) >= boxWidth / 2 || fabs(yValue) >= boxHeight / 2)
+	{
+		if (fabs(xValue) >= boxWidth / 2)
+		{
+			xValue = (xValue > 0 ? 1 : -1) * boxWidth / 2;
+		}
+		if (fabs(yValue) >= boxHeight / 2)
+		{
+			yValue = (yValue > 0 ? 1 : -1) * boxHeight / 2;
+		}
+	
+		return centre + Vector(xValue, yValue);
+	}
+	else
+	{
+		float firstSectorBoundaryY = -boxHeight / boxWidth;
+		float secondSectorBoundaryY = boxHeight / boxWidth;
+		
+		return centre + Vector(xValue, boxHeight / 2);
+	}
 }
 
 Vector Box::getCentre() const
 {
-	std::auto_ptr<Vector> centre(Vector(*corners[0]) + Vector(boxWidth, -boxHeight));
+	std::auto_ptr<Vector> centre(Vector(*corners[0]) + Vector(boxWidth / 2, -boxHeight / 2));
 
 	return *centre;
 }

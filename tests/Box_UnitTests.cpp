@@ -229,3 +229,23 @@ TEST_F(BoxTests, GetSeparatingAxesReturnsEdgeNormals)
 	EXPECT_EQ(OrderedPair(1, 0), separatingAxes->getAxis(0));
 	EXPECT_EQ(OrderedPair(0, 1), separatingAxes->getAxis(1));
 }
+
+TEST_F(BoxTests, ClosestVertexIsDirectlyAboveWhenInBottomInnerRegion)
+{
+	Box b(Point(-1, 1), 2, 2);
+	std::auto_ptr<OrderedPair> op(new Point(-0.5, 0.6));
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(*op));
+
+	EXPECT_EQ(Point(-0.5, -1), *closest);
+
+}
+
+TEST_F(BoxTests, ClosestVertexIsDirectlyAboveWhenInTopInnerRegion)
+{
+	Box b(Point(-1, 1), 2, 2);
+	std::auto_ptr<OrderedPair> op(new Point(0.5, 0.6));
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(*op));
+
+	EXPECT_EQ(Point(0.5, 1), *closest);
+
+}
