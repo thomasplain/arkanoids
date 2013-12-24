@@ -97,7 +97,7 @@ bool Circle::isVertex(const OrderedPair& point) const
 	return (fabs(centreToPoint->Length() - radius) <= 0.00001);
 }
 
-AxisSet* Circle::getSeparatingAxes(const Shape* s)
+AxisSet* Circle::getSeparatingAxes(const Shape* s) const
 {
 	AxisSet *as =  new AxisSet();
 

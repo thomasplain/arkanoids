@@ -24,7 +24,7 @@ class Circle : public Shape
 		virtual int getNumVertices() const { return 16; };
 		virtual Vector getVertex(int vertexNumber) const;
 		virtual bool isVertex(const OrderedPair& point) const;
-		virtual AxisSet* getSeparatingAxes(const Shape* s);
+		virtual AxisSet* getSeparatingAxes(const Shape* s) const;
 };
 
 #endif /* CIRCLE_H */

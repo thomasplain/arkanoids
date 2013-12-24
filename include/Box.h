@@ -30,7 +30,7 @@ public:
 	virtual Vector getVertex(int vertexNumber) const;
 	virtual bool isVertex(const OrderedPair& point) const;
 
-	virtual AxisSet* getSeparatingAxes(const Shape* other = 0);
+	virtual AxisSet* getSeparatingAxes(const Shape* other = 0) const;
 };
 
 #endif /* BOX_H_ */

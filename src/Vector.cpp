@@ -9,6 +9,7 @@ float Vector::Length() const
 const Vector Vector::Normalise() const
 {
 	float magnitude = Length();
+	magnitude = fabs(magnitude - 0) < 0.000001 ? 1 : magnitude;
 	return Vector((x / magnitude), (y / magnitude));
 }
 
