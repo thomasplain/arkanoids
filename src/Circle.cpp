@@ -61,7 +61,7 @@ Projection Circle::Project(const Vector& axis) const
 	return Projection(start, end);
 }
 
-OrderedPair* Circle::getClosestPoint(const OrderedPair& op) const
+OrderedPair* Circle::getClosestVertex(const OrderedPair& op) const
 {
 	Vector *closestPoint;
 
@@ -101,11 +101,11 @@ AxisSet* Circle::getSeparatingAxes(const Shape* s)
 {
 	AxisSet *as =  new AxisSet();
 
-	std::auto_ptr<OrderedPair> closestPoint(s->getClosestPoint(getCentre()));
+	std::auto_ptr<OrderedPair> closestPoint(s->getClosestVertex(getCentre()));
 
 	if (s->isVertex(*closestPoint))
 	{
-			std::auto_ptr<OrderedPair> closestPointToVertex(getClosestPoint(*closestPoint));
+			std::auto_ptr<OrderedPair> closestPointToVertex(getClosestVertex(*closestPoint));
 		Vector *separatingAxis = Vector(*closestPointToVertex)
 				- Vector(*closestPoint);
 		as->add(separatingAxis->Normalise());

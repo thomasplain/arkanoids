@@ -28,8 +28,8 @@ bool CollisionCheck::collisionOccurred(const Circle &c, const Box &b)
 		c.Project(xAxis).OverlapsWith(b.Project(xAxis));
 	if (collision)
 	{
-		std::auto_ptr<OrderedPair> closestPointOnBox(b.getClosestPoint(c.getCentre()));
-		std::auto_ptr<OrderedPair> closestPointOnCircle(c.getClosestPoint(*closestPointOnBox));
+		std::auto_ptr<OrderedPair> closestPointOnBox(b.getClosestVertex(c.getCentre()));
+		std::auto_ptr<OrderedPair> closestPointOnCircle(c.getClosestVertex(*closestPointOnBox));
 		if (*closestPointOnBox == *closestPointOnCircle) return collision;
 		std::auto_ptr<Vector> separatingAxis(Vector(*closestPointOnBox) - Vector(*closestPointOnCircle));
 		collision = collision && c.Project(*separatingAxis).OverlapsWith(b.Project(*separatingAxis));
