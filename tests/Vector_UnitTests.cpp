@@ -189,3 +189,10 @@ TEST_F(VectorTests, VectorTimesScalar)
 	ASSERT_EQ(Vector(-5, -5), *product);
 	delete product;
 }
+
+TEST_F(VectorTests, NormalisedZeroVectorIsItself)
+{
+	Vector v(0, 0);
+
+	EXPECT_EQ(v, v.Normalise());
+}
