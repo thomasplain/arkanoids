@@ -102,10 +102,17 @@ OrderedPair* Box::getClosestVertex(const OrderedPair& op) const
 	}
 	else
 	{
-		float firstSectorBoundaryY = -boxHeight / boxWidth;
-		float secondSectorBoundaryY = boxHeight / boxWidth;
+		float firstSectorBoundaryY = -boxHeight / boxWidth * xValue;
+		float secondSectorBoundaryY = boxHeight / boxWidth * xValue;
 		
-		return centre + Vector(xValue, boxHeight / 2);
+		if (yValue > firstSectorBoundaryY)	
+		{
+			return centre + Vector(xValue, boxHeight / 2);
+		}
+		else
+		{
+			return centre + Vector(xValue, -boxHeight / 2);
+		}
 	}
 }
 
