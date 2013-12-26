@@ -79,33 +79,43 @@ TEST(CircleTests, ProjectionOntoFortyFiveDegAxisIsDiameter)
 	EXPECT_EQ(expected, c.Project(fortyFiveAxis));
 }
 
-TEST(CircleTests, getClosestPointReturnsPointOnCircumferenceIfOutside)
+TEST(CircleTests, getClosestVertexReturnsPointOnCircumferenceIfOutside)
 {
 	Circle c(OrderedPair(0, 0), 2);
 	OrderedPair p(0, 3);
 
-	OrderedPair *closest = c.getClosestPoint(p);
+	OrderedPair *closest = c.getClosestVertex(p);
 	EXPECT_EQ(OrderedPair(0, 2), *closest);
 	delete closest;
 
 	p = OrderedPair(3, 0);
-	closest = c.getClosestPoint(p);
+	closest = c.getClosestVertex(p);
 	EXPECT_EQ(OrderedPair(2, 0), *closest);
 	delete closest;
 
 	p = OrderedPair(-3, 0);
-	closest = c.getClosestPoint(p);
+	closest = c.getClosestVertex(p);
 	EXPECT_EQ(OrderedPair(-2, 0), *closest);
 	delete closest;
 }
 
-TEST(CircleTests, ClosestPointIsSelfIfInsideCircle)
+TEST(CircleTests, ClosestVertexIsNearestEdgeIfInsideCircle)
 {
 	Circle c(Point(0, 0), 2);
 	OrderedPair p(1, 0);
 
-	OrderedPair *closest = c.getClosestPoint(p);
-	EXPECT_EQ(p, *closest);
+	OrderedPair *closest = c.getClosestVertex(p);
+	EXPECT_EQ(Point(2, 0), *closest);
+	delete closest;
+}
+
+TEST(CircleTests, ClosestVertexIsFirstIfPointIsCentre)
+{
+	Circle c(Point(0, 0), 2);
+	OrderedPair p(0, 0);
+
+	OrderedPair *closest = c.getClosestVertex(p);
+	EXPECT_EQ(Point(2, 0), *closest);
 	delete closest;
 }
 

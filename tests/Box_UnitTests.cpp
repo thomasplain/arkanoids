@@ -97,7 +97,7 @@ TEST_F(BoxTests, ClosestPointIsTopLeftCornerWhenInTopLeftRegion)
 	Box b(OrderedPair(-1, 1), 2, 2);
 	OrderedPair p(-2, 5);
 
-	std::auto_ptr<OrderedPair> closest(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(p));
 	EXPECT_EQ(Point(-1, 1), *closest);
 }
 
@@ -106,7 +106,7 @@ TEST_F(BoxTests, ClosestPointIsTopRightCornerWhenInTopRightRegion)
 	Box b(OrderedPair(-1, 1), 2, 2);
 	OrderedPair p(3, 4);
 
-	std::auto_ptr<OrderedPair> closest(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(p));
 	EXPECT_EQ(OrderedPair(1, 1), *closest);
 }
 
@@ -115,7 +115,7 @@ TEST_F(BoxTests, ClosestPointIsBottomLeftCornerWhenInBottomLeftRegion)
 	Box b(OrderedPair(-1, 1), 2, 2);
 	OrderedPair p(-10, -7);
 
-	std::auto_ptr<OrderedPair> closest(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(p));
 	EXPECT_EQ(Point(-1, -1), *closest);
 }
 
@@ -124,7 +124,7 @@ TEST_F(BoxTests, ClosestPointIsBottomRightCornerWhenInBottomRightRegion)
 	Box b(OrderedPair(-1, 1), 2, 2);
 	OrderedPair p(3, -4);
 
-	std::auto_ptr<OrderedPair> closest(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(p));
 	EXPECT_EQ(OrderedPair(1, -1), *closest);
 }
 
@@ -133,12 +133,12 @@ TEST_F(BoxTests, ClosestPointIsOnEdgeDirectlyBelowWhenAbove)
 	Box b(OrderedPair(-1, 1), 2, 2);
 	OrderedPair p(0, 2);
 
-	std::auto_ptr<OrderedPair> closest(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(p));
 	EXPECT_EQ(OrderedPair(0, 1), *closest);
 	
 	p = OrderedPair(-0.5, 2);
 
-	std::auto_ptr<OrderedPair> closest2(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest2(b.getClosestVertex(p));
 	EXPECT_EQ(OrderedPair(-0.5, 1), *closest2);
 }
 
@@ -147,12 +147,12 @@ TEST_F(BoxTests, ClosestPointIsOnEdgeDirectlyAboveWhenBelow)
 	Box b(OrderedPair(-1, 1), 2, 2);
 	OrderedPair p(0, -2);
 
-	std::auto_ptr<OrderedPair> closest(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(p));
 	EXPECT_EQ(OrderedPair(0, -1), *closest);
 	
 	p = OrderedPair(-0.5, -2);
 
-	std::auto_ptr<OrderedPair> closest2(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest2(b.getClosestVertex(p));
 	EXPECT_EQ(OrderedPair(-0.5, -1), *closest2);
 }
 
@@ -161,12 +161,12 @@ TEST_F(BoxTests, ClosestPointIsOnEdgeDirectlyHorizontalAndShit)
 	Box b(OrderedPair(-1, 1), 2, 2);
 	OrderedPair p(10, 0);
 
-	std::auto_ptr<OrderedPair> closest(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(p));
 	EXPECT_EQ(OrderedPair(1, 0), *closest);
 	
 	p = OrderedPair(10, 0.5);
 
-	std::auto_ptr<OrderedPair> closest2(b.getClosestPoint(p));
+	std::auto_ptr<OrderedPair> closest2(b.getClosestVertex(p));
 	EXPECT_EQ(OrderedPair(1, 0.5), *closest2);
 }
 
@@ -228,4 +228,55 @@ TEST_F(BoxTests, GetSeparatingAxesReturnsEdgeNormals)
 	EXPECT_EQ(2, separatingAxes->size());
 	EXPECT_EQ(OrderedPair(1, 0), separatingAxes->getAxis(0));
 	EXPECT_EQ(OrderedPair(0, 1), separatingAxes->getAxis(1));
+}
+
+TEST_F(BoxTests, ClosestVertexIsDirectlyBelowWhenInBottomInnerRegion)
+{
+	Box b(Point(2, 2), 2, 2);
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(Point(2.5, 0.4)));
+
+	EXPECT_EQ(Point(2.5, 0), *closest);
+
+}
+
+TEST_F(BoxTests, ClosestVertexIsDirectlyAboveWhenInTopInnerRegion)
+{
+	Box b(Point(-1, 1), 2, 2);
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(Point(0.5, 0.6)));
+
+	EXPECT_EQ(Point(0.5, 1), *closest);
+
+}
+
+TEST_F(BoxTests, ClosestVertexIsDirectlyToTheRightWhenInRightRegion)
+{
+	Box b(Point(1, 5), 3, 2);
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(Point(3.8, 3.5)));
+
+	EXPECT_EQ(Point(4, 3.5), *closest);
+}
+
+TEST_F(BoxTests, ClosestVertexIsDirectlyToLeftWhenInLeftRegion)
+{
+	Box b(Point(-6, -9), 5, 7);
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(Point(-5.5, -10.7)));
+
+	EXPECT_EQ(Point(-6, -10.7), *closest);
+}
+
+TEST_F(BoxTests, PointBetweenVoronoiRegionTakesClosestCorner)
+{
+	Box b(Point(-1, 1), 2, 2);
+	
+	std::auto_ptr<OrderedPair> closest(b.getClosestVertex(Point(-0.5, 0.5)));
+	EXPECT_EQ(Point(-1, 1), *closest);
+
+	closest = std::auto_ptr<OrderedPair>(b.getClosestVertex(Point(0.5, 0.5)));
+	EXPECT_EQ(Point(1, 1), *closest);
+
+	closest = std::auto_ptr<OrderedPair>(b.getClosestVertex(Point(0.5, -0.5)));
+	EXPECT_EQ(Point(1, -1), *closest);
+
+	closest = std::auto_ptr<OrderedPair>(b.getClosestVertex(Point(-0.5, -0.5)));
+	EXPECT_EQ(Point(-1, -1), *closest);
 }

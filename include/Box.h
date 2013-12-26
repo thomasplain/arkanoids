@@ -1,6 +1,8 @@
 #ifndef BOX_H_
 #define BOX_H_
 
+#include <string>
+
 class OrderedPair;
 class Projection;
 class AxisSet;
@@ -12,6 +14,7 @@ class Box : public Shape
 	OrderedPair* corners[4];
 	float boxWidth, boxHeight;
 	void setCorners(const OrderedPair& topLeftCorner);
+	std::string findVoronoiRegion(const OrderedPair& op) const;
 public:
 	Box(const OrderedPair& p, float width, float height);
 	Box(const OrderedPair& firstCorner, const OrderedPair &oppositeCorner);
@@ -23,7 +26,7 @@ public:
 	float GetHeight() const;
 	virtual Projection Project(const Vector& axis) const;
 
-	virtual	OrderedPair* getClosestPoint(const OrderedPair& op) const;
+	virtual	OrderedPair* getClosestVertex(const OrderedPair& op) const;
 	virtual	Vector getCentre() const;
 
 	virtual int getNumVertices() const { return sizeof(corners)/sizeof(corners[0]); };

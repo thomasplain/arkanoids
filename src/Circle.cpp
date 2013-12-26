@@ -61,22 +61,22 @@ Projection Circle::Project(const Vector& axis) const
 	return Projection(start, end);
 }
 
-OrderedPair* Circle::getClosestPoint(const OrderedPair& op) const
+OrderedPair* Circle::getClosestVertex(const OrderedPair& op) const
 {
 	Vector *closestPoint;
 
-	Vector distanceBetweenCentreAndPoint(*(Vector(op) - Vector(*centre)));
+	std::auto_ptr<Vector> distanceBetweenCentreAndPoint(Vector(op) - Vector(*centre));
 
-	if (distanceBetweenCentreAndPoint.Length() > radius)
-	{
-		Vector normalisedDistance = distanceBetweenCentreAndPoint.Normalise();
+	if (distanceBetweenCentreAndPoint->Length() > 0)
+	{	
+		Vector normalisedDistance = distanceBetweenCentreAndPoint->Normalise();
 		Vector *pointOnCircumference = normalisedDistance.Times(radius);
 		closestPoint = Vector(*centre) + Vector(*pointOnCircumference);
 		delete pointOnCircumference;
 	}
 	else
 	{
-		closestPoint = new Vector(op);
+		closestPoint = new Vector(getVertex(0));
 	}
 
 	return closestPoint;
@@ -101,11 +101,11 @@ AxisSet* Circle::getSeparatingAxes(const Shape* s) const
 {
 	AxisSet *as =  new AxisSet();
 
-	std::auto_ptr<OrderedPair> closestPoint(s->getClosestPoint(getCentre()));
+	std::auto_ptr<OrderedPair> closestPoint(s->getClosestVertex(getCentre()));
 
 	if (s->isVertex(*closestPoint))
 	{
-			std::auto_ptr<OrderedPair> closestPointToVertex(getClosestPoint(*closestPoint));
+			std::auto_ptr<OrderedPair> closestPointToVertex(getClosestVertex(*closestPoint));
 		Vector *separatingAxis = Vector(*closestPointToVertex)
 				- Vector(*closestPoint);
 		if (!(*separatingAxis == Vector(0, 0)))
