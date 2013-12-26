@@ -1,4 +1,3 @@
-#include <iostream>
 #include "CollisionCheck.h"
 #include "Vector.h"
 #include "Projection.h"
@@ -27,7 +26,6 @@ bool CollisionCheck::collisionOccurred(const Shape &s1, const Shape &s2)
 	{
 		collision = collision &&
 			s1.Project(Vector(shape1AxisSet->getAxis(axisIndex))).OverlapsWith(s2.Project(Vector(shape1AxisSet->getAxis(axisIndex))));
-		std::cout <<"Axis = ("<<shape1AxisSet->getAxis(axisIndex).GetX()<<", "<<shape1AxisSet->getAxis(axisIndex).GetY()<<")"<<std::endl;
 		axisIndex++;
 	}
 
