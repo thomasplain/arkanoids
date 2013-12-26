@@ -65,18 +65,18 @@ OrderedPair* Circle::getClosestVertex(const OrderedPair& op) const
 {
 	Vector *closestPoint;
 
-	Vector distanceBetweenCentreAndPoint(*(Vector(op) - Vector(*centre)));
+	std::auto_ptr<Vector> distanceBetweenCentreAndPoint(Vector(op) - Vector(*centre));
 
-	if (distanceBetweenCentreAndPoint.Length() > radius)
-	{
-		Vector normalisedDistance = distanceBetweenCentreAndPoint.Normalise();
+	if (distanceBetweenCentreAndPoint->Length() > 0)
+	{	
+		Vector normalisedDistance = distanceBetweenCentreAndPoint->Normalise();
 		Vector *pointOnCircumference = normalisedDistance.Times(radius);
 		closestPoint = Vector(*centre) + Vector(*pointOnCircumference);
 		delete pointOnCircumference;
 	}
 	else
 	{
-		closestPoint = new Vector(op);
+		closestPoint = new Vector(getVertex(0));
 	}
 
 	return closestPoint;

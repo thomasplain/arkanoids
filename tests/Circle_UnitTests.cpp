@@ -99,13 +99,23 @@ TEST(CircleTests, getClosestVertexReturnsPointOnCircumferenceIfOutside)
 	delete closest;
 }
 
-TEST(CircleTests, ClosestPointIsSelfIfInsideCircle)
+TEST(CircleTests, ClosestVertexIsNearestEdgeIfInsideCircle)
 {
 	Circle c(Point(0, 0), 2);
 	OrderedPair p(1, 0);
 
 	OrderedPair *closest = c.getClosestVertex(p);
-	EXPECT_EQ(p, *closest);
+	EXPECT_EQ(Point(2, 0), *closest);
+	delete closest;
+}
+
+TEST(CircleTests, ClosestVertexIsFirstIfPointIsCentre)
+{
+	Circle c(Point(0, 0), 2);
+	OrderedPair p(0, 0);
+
+	OrderedPair *closest = c.getClosestVertex(p);
+	EXPECT_EQ(Point(2, 0), *closest);
 	delete closest;
 }
 
