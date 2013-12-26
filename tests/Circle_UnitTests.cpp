@@ -174,3 +174,12 @@ TEST(CircleTests, ReturnsSeparatingAxisWhenInvertexVoronoiRegionOfBox)
 	EXPECT_EQ(1, separatingAxes->size());
 	EXPECT_EQ(Point(1.0 / sqrt(2), 1.0 / sqrt(2)), separatingAxes->getAxis(0));
 }
+
+TEST(CircleTests, WhenTwoCirclesTouchSeparatingAxesIsEmptySet)
+{
+	Circle c1(Point(0, 0), 1), c2(Point(sqrt(2), sqrt(2)), 1);
+
+	std::auto_ptr<AxisSet> separatingAxes(c1.getSeparatingAxes(&c2));
+
+	EXPECT_EQ(0, separatingAxes->size());
+}

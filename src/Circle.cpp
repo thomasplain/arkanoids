@@ -108,7 +108,10 @@ AxisSet* Circle::getSeparatingAxes(const Shape* s) const
 			std::auto_ptr<OrderedPair> closestPointToVertex(getClosestPoint(*closestPoint));
 		Vector *separatingAxis = Vector(*closestPointToVertex)
 				- Vector(*closestPoint);
-		as->add(separatingAxis->Normalise());
+		if (!(*separatingAxis == Vector(0, 0)))
+		{
+			as->add(separatingAxis->Normalise());
+		}
 		delete separatingAxis;
 	}
 

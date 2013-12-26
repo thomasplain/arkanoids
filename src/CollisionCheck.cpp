@@ -17,6 +17,11 @@ bool CollisionCheck::collisionOccurred(const Shape &s1, const Shape &s2)
 
 	int axisIndex = 0;
 
+	if (shape1AxisSet->size() == 0)
+	{
+		collision = false;
+	}
+
 	while (axisIndex < shape1AxisSet->size() &&
 			collision)
 	{
