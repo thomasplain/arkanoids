@@ -45,9 +45,11 @@ static bool floatEqual(float f1, float f2)
 std::string Box::findVoronoiRegion(const OrderedPair& op) const
 {
 	float xValue = op.GetX(); float yValue = op.GetY();
+	// Draw two lines from corner to corner
 	float firstSectorBoundaryY = -boxHeight / boxWidth * xValue;
 	float secondSectorBoundaryY = boxHeight / boxWidth * xValue;
 
+	// Does the point lie directly on any of the lines
 	if (floatEqual(firstSectorBoundaryY, yValue) || floatEqual(secondSectorBoundaryY, yValue))
 	{
 		bool xGreaterThanZero = xValue > 0;
@@ -65,11 +67,61 @@ std::string Box::findVoronoiRegion(const OrderedPair& op) const
 		{
 			return Regions::TopLeftCorner;
 		}
+		// This also covers the case where the point is the centre
 		else if (!xGreaterThanZero && !yGreaterThanZero)
 		{
 			return Regions::BottomLeftCorner;
 		}
 	}
+
+	if (fabs(xValue) >= boxWidth / 2 || fabs(yValue) >= boxHeight / 2)
+	{
+		if (fabs(xValue) >= boxWidth / 2)
+		{
+			if (yValue <= -boxHeight / 2)
+			{
+				return Regions::BottomRightCorner;
+			}
+			else if (yValue >= boxHeight / 2)
+			{
+				return Regions::TopRightCorner;
+			}
+			else
+			{
+				return Regions::RightEdge;
+			}
+		}
+		else if (fabs(xValue) <= -boxWidth / 2)
+		{
+			if (yValue <= -boxHeight / 2)
+			{
+				return Regions::BottomLeftCorner;
+			}
+			else if (yValue >= boxHeight / 2)
+			{
+				return Regions::TopLeftCorner;
+			}
+			else
+			{
+				return Regions::LeftEdge;
+			}
+		}
+		else
+		{
+
+			if (yValue <= -boxHeight / 2)
+			{
+				return Regions::BottomEdge;
+			}
+			else if (yValue >= boxHeight / 2)
+			{
+				return Regions::TopEdge;
+			}
+		}
+	
+	}
+
+	// Find which internal quadrant the point lies in
 	if (yValue > firstSectorBoundaryY)	
 	{
 		if (yValue < secondSectorBoundaryY)
@@ -173,47 +225,30 @@ OrderedPair* Box::getClosestVertex(const OrderedPair& op) const
 	std::auto_ptr<Vector> difference(Vector(op) - centre);
 	float xValue = difference->GetX(), yValue = difference->GetY(); 
 	
-	if (fabs(xValue) >= boxWidth / 2 || fabs(yValue) >= boxHeight / 2)
+	std::string voronoiRegion = findVoronoiRegion(*difference);
+
+	if (Regions::isCorner(voronoiRegion))
 	{
-		if (fabs(xValue) >= boxWidth / 2)
-		{
-			xValue = (xValue > 0 ? 1 : -1) * boxWidth / 2;
-		}
-		if (fabs(yValue) >= boxHeight / 2)
-		{
-			yValue = (yValue > 0 ? 1 : -1) * boxHeight / 2;
-		}
-	
+		xValue = (xValue > 0 ? 1 : -1) * boxWidth / 2;
+		yValue = (yValue > 0 ? 1 : -1) * boxHeight / 2;
+
 		return centre + Vector(xValue, yValue);
 	}
-	else
+	else if (voronoiRegion == Regions::RightEdge)
 	{
-		std::string voronoiRegion = findVoronoiRegion(*difference);
-
-		if (Regions::isCorner(voronoiRegion))
-		{
-			xValue = (xValue > 0 ? 1 : -1) * boxWidth / 2;
-			yValue = (yValue > 0 ? 1 : -1) * boxHeight / 2;
-
-			return centre + Vector(xValue, yValue);
-		}
-		else if (voronoiRegion == Regions::RightEdge)
-		{
-			return centre + Vector(boxWidth / 2, yValue);
-		}
-		else if (voronoiRegion == Regions::TopEdge)
-		{
-			return centre + Vector(xValue, boxHeight / 2);
-		}
-		else if (voronoiRegion == Regions::BottomEdge)
-		{
-			return centre + Vector(xValue, -boxHeight / 2);
-		}
-		else if (voronoiRegion == Regions::LeftEdge)
-		{
-			return centre + Vector(-boxWidth / 2, yValue);
-		}
-
+		return centre + Vector(boxWidth / 2, yValue);
+	}
+	else if (voronoiRegion == Regions::TopEdge)
+	{
+		return centre + Vector(xValue, boxHeight / 2);
+	}
+	else if (voronoiRegion == Regions::BottomEdge)
+	{
+		return centre + Vector(xValue, -boxHeight / 2);
+	}
+	else if (voronoiRegion == Regions::LeftEdge)
+	{
+		return centre + Vector(-boxWidth / 2, yValue);
 	}
 }
 
