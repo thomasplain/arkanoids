@@ -184,6 +184,15 @@ TEST_F(VectorTests, VectortimesScalar)
 	ASSERT_EQ(Vector(-5, -5), product);
 }
 
+TEST_F(VectorTests, TimesOverloaded)
+{
+
+	Vector v1(3, 3);
+	Vector result1 = v1.times(3),
+		result2 = v1 * 3;
+	ASSERT_EQ(result1, result2);
+}
+
 TEST_F(VectorTests, NormalisedZeroVectorIsItself)
 {
 	Vector v(0, 0);

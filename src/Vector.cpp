@@ -38,6 +38,11 @@ Vector Vector::operator+(const Vector& v)
 	return this->add(v);
 }
 
+Vector Vector::operator*(const float f)
+{
+	return this->times(f);
+}
+
 Vector Vector::operator-(const Vector& v)
 {
 	return this->subtract(v);
