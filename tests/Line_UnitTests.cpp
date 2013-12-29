@@ -23,4 +23,8 @@ TEST(LineTests, CentreOfLineIsMidPoint)
 	Line l(Point(2, 4), Point(2, -4));
 
 	EXPECT_EQ(Vector(2, 0), l.getCentre());
+
+	Line l2(Point(-1, 0), Point(1, 2));
+
+	EXPECT_EQ(Vector(0, 1), l2.getCentre());
 }

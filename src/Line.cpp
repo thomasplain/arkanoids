@@ -14,10 +14,7 @@ Projection Line::Project(const Vector& axis) const
 
 Vector Line::getCentre() const
 {
-	std::auto_ptr<Vector> centre(Vector(start) - Vector(end));
-	centre = centre->Times(0.5);
-	centre = centre + Vector(start);
-
+	return (Vector(start) * 0.5) + (Vector(end) * 0.5);
 }
 
 OrderedPair* Line::getClosestVertex(const OrderedPair& op) const
@@ -29,7 +26,6 @@ int Line::getNumVertices() const
 {
 	return 0;
 }
-
 
 Vector Line::getVertex(int vertexIndex) const
 {
