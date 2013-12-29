@@ -65,14 +65,13 @@ OrderedPair* Circle::getClosestVertex(const OrderedPair& op) const
 {
 	Vector *closestPoint;
 
-	std::auto_ptr<Vector> distanceBetweenCentreAndPoint(Vector(op) - Vector(*centre));
+	Vector distanceBetweenCentreAndPoint(Vector(op) - Vector(*centre));
 
-	if (distanceBetweenCentreAndPoint->Length() > 0)
+	if (distanceBetweenCentreAndPoint.Length() > 0)
 	{	
-		Vector normalisedDistance = distanceBetweenCentreAndPoint->Normalise();
-		Vector *pointOnCircumference = normalisedDistance.Times(radius);
-		closestPoint = Vector(*centre) + Vector(*pointOnCircumference);
-		delete pointOnCircumference;
+		Vector normalisedDistance = distanceBetweenCentreAndPoint.Normalise();
+		Vector pointOnCircumference = normalisedDistance.times(radius);
+		closestPoint = new Vector(Vector(*centre) + pointOnCircumference);
 	}
 	else
 	{
@@ -92,9 +91,9 @@ Vector Circle::getVertex(int vertexNumber) const
 
 bool Circle::isVertex(const OrderedPair& point) const
 {
-	std::auto_ptr<Vector> centreToPoint(Vector(point) - Vector(*centre));
+	Vector centreToPoint(Vector(point) - Vector(*centre));
 
-	return (fabs(centreToPoint->Length() - radius) <= 0.00001);
+	return (fabs(centreToPoint.Length() - radius) <= 0.00001);
 }
 
 AxisSet* Circle::getSeparatingAxes(const Shape* s) const
@@ -106,13 +105,12 @@ AxisSet* Circle::getSeparatingAxes(const Shape* s) const
 	if (s->isVertex(*closestPoint))
 	{
 			std::auto_ptr<OrderedPair> closestPointToVertex(getClosestVertex(*closestPoint));
-		Vector *separatingAxis = Vector(*closestPointToVertex)
+		Vector separatingAxis = Vector(*closestPointToVertex)
 				- Vector(*closestPoint);
-		if (!(*separatingAxis == Vector(0, 0)))
+		if (!(separatingAxis == Vector(0, 0)))
 		{
-			as->add(separatingAxis->Normalise());
+			as->add(separatingAxis.Normalise());
 		}
-		delete separatingAxis;
 	}
 
 	return as;

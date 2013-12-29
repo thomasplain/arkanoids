@@ -18,27 +18,27 @@ float Vector::Dot(const Vector &v) const
 	return ((this->x * v.x) + (this->y * v.y));
 }
 
-Vector* Vector::Add(const Vector& v)
+Vector Vector::add(const Vector& v)
 {
-	return new Vector(x + v.x, y + v.y);
+	return Vector(x + v.x, y + v.y);
 }
 
-Vector* Vector::Subtract(const Vector& v)
+Vector Vector::subtract(const Vector& v)
 {
-	return new Vector(x - v.x, y - v.y);
+	return Vector(x - v.x, y - v.y);
 }
 
-Vector* Vector::Times(const float f)
+Vector Vector::times(const float f)
 {
-	return new Vector(x * f, y * f);
+	return Vector(x * f, y * f);
 }
 
-Vector* Vector::operator+(const Vector& v)
+Vector Vector::operator+(const Vector& v)
 {
-	return this->Add(v);
+	return this->add(v);
 }
 
-Vector* Vector::operator-(const Vector& v)
+Vector Vector::operator-(const Vector& v)
 {
-	return this->Subtract(v);
+	return this->subtract(v);
 }

@@ -1,6 +1,6 @@
 EXT_DIR = externals
 INC_DIR = include
-VPATH = src:tests
+VPATH = src:tests:include
 
 # If system OS is Windows
 ifeq ($(OS),Windows_NT)
@@ -28,3 +28,6 @@ Main: Main.o \
 	AxisSet_UnitTests.o AxisSet.o
 	$(CXX) -o arkanoids $(CXXFLAGS) $^ $(LIBGTEST)
 	./arkanoids
+
+Vector_UnitTests.o: Vector_UnitTests.cpp Vector.cpp Vector.h
+	$(CXX) $(CXXFLAGS) -c $^
