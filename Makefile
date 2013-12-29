@@ -32,3 +32,6 @@ Main: Main.o \
 
 Line_UnitTests.o: Line_UnitTests.cpp Line.cpp Line.h
 	$(CXX) $(CXXFLAGS) -c $^
+
+Vector_UnitTests.o: Vector_UnitTests.cpp Vector.cpp Vector.h
+	$(CXX) $(CXXFLAGS) -c $^

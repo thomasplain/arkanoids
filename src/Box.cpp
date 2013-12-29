@@ -191,9 +191,9 @@ Box::~Box()
 void Box::setCorners(const OrderedPair& topLeftCorner)
 {
 	corners[0] = new Vector(topLeftCorner);
-	corners[1] = Vector(topLeftCorner) + Vector(0, -boxHeight);
-	corners[2] = Vector(topLeftCorner) + Vector(boxWidth, -boxHeight);
-	corners[3] = Vector(topLeftCorner) + Vector(boxWidth, 0);
+	corners[1] = new Vector(Vector(topLeftCorner) + Vector(0, -boxHeight));
+	corners[2] = new Vector(Vector(topLeftCorner) + Vector(boxWidth, -boxHeight));
+	corners[3] = new Vector(Vector(topLeftCorner) + Vector(boxWidth, 0));
 }
 
 float Box::GetWidth() const
@@ -222,41 +222,41 @@ Projection Box::Project(const Vector& axis) const
 OrderedPair* Box::getClosestVertex(const OrderedPair& op) const
 {
 	Vector centre = getCentre();
-	std::auto_ptr<Vector> difference(Vector(op) - centre);
-	float xValue = difference->GetX(), yValue = difference->GetY(); 
+	Vector difference(Vector(op) - centre);
+	float xValue = difference.GetX(), yValue = difference.GetY(); 
 	
-	std::string voronoiRegion = findVoronoiRegion(*difference);
+	std::string voronoiRegion = findVoronoiRegion(difference);
 
 	if (Regions::isCorner(voronoiRegion))
 	{
 		xValue = (xValue > 0 ? 1 : -1) * boxWidth / 2;
 		yValue = (yValue > 0 ? 1 : -1) * boxHeight / 2;
 
-		return centre + Vector(xValue, yValue);
+		return new Vector(centre + Vector(xValue, yValue));
 	}
 	else if (voronoiRegion == Regions::RightEdge)
 	{
-		return centre + Vector(boxWidth / 2, yValue);
+		return new Vector(centre + Vector(boxWidth / 2, yValue));
 	}
 	else if (voronoiRegion == Regions::TopEdge)
 	{
-		return centre + Vector(xValue, boxHeight / 2);
+		return new Vector(centre + Vector(xValue, boxHeight / 2));
 	}
 	else if (voronoiRegion == Regions::BottomEdge)
 	{
-		return centre + Vector(xValue, -boxHeight / 2);
+		return new Vector(centre + Vector(xValue, -boxHeight / 2));
 	}
 	else if (voronoiRegion == Regions::LeftEdge)
 	{
-		return centre + Vector(-boxWidth / 2, yValue);
+		return new Vector(centre + Vector(-boxWidth / 2, yValue));
 	}
 }
 
 Vector Box::getCentre() const
 {
-	std::auto_ptr<Vector> centre(Vector(*corners[0]) + Vector(boxWidth / 2, -boxHeight / 2));
+	Vector centre(Vector(*corners[0]) + Vector(boxWidth / 2, -boxHeight / 2));
 
-	return *centre;
+	return centre;
 }
 
 Vector Box::getVertex(int vertexNumber) const
@@ -284,10 +284,10 @@ AxisSet* Box::getSeparatingAxes(const Shape* other) const
 {
 	AxisSet* as = new AxisSet();
 	
-	std::auto_ptr<Vector> axis1(Vector(*corners[3]) - Vector(*corners[0]));
-	std::auto_ptr<Vector> axis2(Vector(*corners[0]) - Vector(*corners[1]));
+	Vector axis1(Vector(*corners[3]) - Vector(*corners[0]));
+	Vector axis2(Vector(*corners[0]) - Vector(*corners[1]));
 
-	as->add(axis1->Normalise()); as->add(axis2->Normalise());
+	as->add(axis1.Normalise()); as->add(axis2.Normalise());
 
 	return as;
 }

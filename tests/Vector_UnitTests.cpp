@@ -132,28 +132,25 @@ TEST_F(VectorTests, DotWithOrthogonalGivesZero)
 	ASSERT_EQ(v.Dot(Vector(-4, 3)), 0);
 }
 
-TEST_F(VectorTests, AddTwoVectors)
+TEST_F(VectorTests, addTwoVectors)
 {
 	Vector v1(1, 1), v2(1, 1);
 	expect(Vector(2, 2));
 
-	Vector *result = v1.Add(v2);
-	checkResult(*result);
-	delete result;
+	Vector result = v1.add(v2);
+	checkResult(result);
 
 	v2 = Vector(3, -5);
 	expect(Vector(4, -4));
-	result = v1.Add(v2);
-	checkResult(*result);
-	delete result;
+	result = v1.add(v2);
+	checkResult(result);
 }
 
-TEST_F(VectorTests, AddOverloaded)
+TEST_F(VectorTests, addOverloaded)
 {
-	Vector *result1 = Vector(1, 1).Add(Vector(1, 1)),
-		*result2 = Vector(1, 1) + Vector(1, 1);
-	ASSERT_EQ(*result1, *result2);
-	delete result1, result2;
+	Vector result1 = Vector(1, 1).add(Vector(1, 1)),
+		result2 = Vector(1, 1) + Vector(1, 1);
+	ASSERT_EQ(result1, result2);
 }
 
 TEST_F(VectorTests, SubtractTwoVectors)
@@ -161,33 +158,39 @@ TEST_F(VectorTests, SubtractTwoVectors)
 	Vector v1(3, 3), v2(4, 4);
 
 	expect(Vector(-1, -1));
-	Vector *result = v1.Subtract(v2);
-	checkResult(*result);
-	delete result;
+	Vector result = v1.subtract(v2);
+	checkResult(result);
 }
 
 TEST_F(VectorTests, SubtractOverloaded)
 {
 	
 	Vector v1(3, 3), v2(4, 4);
-	Vector *result1 = v1.Subtract(v2),
-		*result2 = v1 - v2;
-	ASSERT_EQ(*result1, *result2);
-	delete result1, result2;
+	Vector result1 = v1.subtract(v2),
+		result2 = v1 - v2;
+	ASSERT_EQ(result1, result2);
 }
 
-TEST_F(VectorTests, VectorTimesScalar)
+TEST_F(VectorTests, VectortimesScalar)
 {
 	Vector v(1, 1);
-	Vector *product = v.Times(3);
-	ASSERT_EQ(Vector(3, 3), *product);
-	delete product;
-	product = v.Times(0);
-	ASSERT_EQ(Vector(0, 0), *product);
-	delete product;
-	product = v.Times(-5);
-	ASSERT_EQ(Vector(-5, -5), *product);
-	delete product;
+	Vector product = v.times(3);
+	ASSERT_EQ(Vector(3, 3), product);
+	
+	product = v.times(0);
+	ASSERT_EQ(Vector(0, 0), product);
+	
+	product = v.times(-5);
+	ASSERT_EQ(Vector(-5, -5), product);
+}
+
+TEST_F(VectorTests, TimesOverloaded)
+{
+
+	Vector v1(3, 3);
+	Vector result1 = v1.times(3),
+		result2 = v1 * 3;
+	ASSERT_EQ(result1, result2);
 }
 
 TEST_F(VectorTests, NormalisedZeroVectorIsItself)
