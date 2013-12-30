@@ -196,3 +196,10 @@ TEST_F(VectorTests, NormalisedZeroVectorIsItself)
 
 	EXPECT_EQ(v, v.Normalise());
 }
+
+TEST_F(VectorTests, NegativeSignReversesVectorDirection)
+{
+	Vector v(1, 2);
+
+	EXPECT_EQ(Vector(-1, -2), -v);
+}

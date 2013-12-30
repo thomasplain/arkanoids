@@ -18,6 +18,7 @@ public:
 
 	Vector* operator+(const Vector& v);
 	Vector* operator-(const Vector& v);
+	Vector operator-();
 };
 
 #endif /* VECTOR_H_ */
