@@ -12,5 +12,5 @@ class Line : public Shape
 		virtual int getNumVertices() const;
 		virtual Vector getVertex(int vertexIndex) const;
 		virtual bool isVertex(const OrderedPair& point) const;
-		virtual AxisSet* getSeparatingAxes(const Shape* s) const;
+		virtual AxisSet* getSeparatingAxes(const Shape* s = 0) const;
 };
