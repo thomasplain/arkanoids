@@ -47,3 +47,11 @@ Vector Vector::operator-(const Vector& v)
 {
 	return this->subtract(v);
 }
+
+Vector Vector::operator-()
+{
+	this->x = -(this->x);
+	this->y = -(this->y);
+	
+	return *this;
+}
